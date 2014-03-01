@@ -1,61 +1,60 @@
 package de.fesere.tictactoe.model;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import static de.fesere.tictactoe.model.Marker.EMPTY;
-
 public class Board {
 
-    List<Line> rows = new LinkedList<Line>();
-    List<Line> columns = new LinkedList<Line>();
-    List<Line> diagonals = new LinkedList<Line>();
+    Marker[][] rows = new Marker[3][3];
 
     public Board() {
-        initializeRowsAndColumns();
-        initializeDiagonals();
+        initializeRows();
     }
 
-    private void initializeDiagonals() {
-        for(int i = 0; i < 2; i++) {
-            diagonals.add(new Line(EMPTY, EMPTY, EMPTY));
+    private void initializeRows() {
+        for (int i = 0; i < rows.length; i++) {
+            initilizeRow(i);
         }
     }
 
-    private void initializeRowsAndColumns() {
-        for(int i = 0; i < 3; i++) {
-            rows.add(new Line(EMPTY, EMPTY, EMPTY));
-            columns.add(new Line(EMPTY, EMPTY, EMPTY));
+    private void initilizeRow(int rowIndex) {
+        for (int i = 0; i < rows[rowIndex].length; i++) {
+            rows[rowIndex][i] = Marker.EMPTY;
         }
     }
 
 
     public Line getRow(int rowIndex) {
-      return rows.get(rowIndex);
+        return new Line(rows[rowIndex]);
     }
 
     public Line getColumn(int columnIndex) {
-        return columns.get(columnIndex);
+        Marker[] columnMarkers = getColumnMarkers(columnIndex);
+        return new Line(columnMarkers);
     }
 
-    public Line getDiagonal(int diagonalIndex) {
-        return diagonals.get(diagonalIndex);
+    private Marker[] getColumnMarkers(int columnIndex) {
+        Marker[] result = new Marker[3];
+        for (int i = 0; i < 3; i++) {
+            result[i] = rows[i][columnIndex];
+        }
+
+        return result;
+    }
+
+    public Line getDiagonal(Diagonal diagonal) {
+        Marker[] diagonalMarkers = getDiagonalMarkers(diagonal);
+
+        return new Line(diagonalMarkers);
+    }
+
+    private Marker[] getDiagonalMarkers(Diagonal diagonal) {
+        Marker[] diagonalMarkers = new Marker[3];
+        for (int i = 0; i < 3; i++) {
+            diagonalMarkers[i] = rows[diagonal.counter(i)][i];
+        }
+        return diagonalMarkers;
     }
 
     public Board mark(int rowIndex, int columnIndex, Marker marker) {
-        markRow(rowIndex, columnIndex, marker);
-        markColumn(rowIndex, columnIndex, marker);
-
-      return this;
-    }
-
-    private void markColumn(int rowIndex, int columnIndex, Marker marker) {
-        Line column = columns.get(columnIndex);
-        column.mark(rowIndex, marker);
-    }
-
-    private void markRow(int rowIndex, int columnIndex, Marker marker) {
-        Line row = rows.get(rowIndex);
-        row.mark(columnIndex, marker);
+        rows[rowIndex][columnIndex] = marker;
+        return this;
     }
 }

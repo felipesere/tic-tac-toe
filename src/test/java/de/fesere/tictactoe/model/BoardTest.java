@@ -1,14 +1,22 @@
 package de.fesere.tictactoe.model;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import static de.fesere.tictactoe.model.Diagonal.BOTTOM_LEFT;
+import static de.fesere.tictactoe.model.Diagonal.TOP_LEFT;
 import static de.fesere.tictactoe.model.Marker.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class BoardTest {
-    Board board = new Board();
+    Board board;
+
+    @Before
+    public void setup() {
+        board = new Board();
+    }
 
     @Test
     public void emptyBoardHasOnlyEmptyRows() {
@@ -30,7 +38,7 @@ public class BoardTest {
     @Test
     public void emptyBoardHasOnlyEmptyDiagonals() {
         for(int i = 0; i < 2; i++) {
-            Line column = board.getDiagonal(i);
+            Line column = board.getDiagonal(TOP_LEFT);
             assertIsEmpty(column);
         }
     }
@@ -44,6 +52,43 @@ public class BoardTest {
 
         Line secondColumn = updatedBoard.getColumn(1);
         assertThat(secondColumn.getMarker(0), is(equalTo(X)));
+    }
+
+    @Test
+    public void markTopLeftAffectsBothRowAndColumnAndDiagonal() {
+        Board updatedBoard = board.mark(0, 0, X);
+
+        Line firstRow = updatedBoard.getRow(0);
+        assertThat(firstRow.getMarker(0), is(equalTo(X)));
+
+        Line firstColumn = updatedBoard.getColumn(0);
+        assertThat(firstColumn.getMarker(0), is(equalTo(X)));
+
+        Line firstDiagonal = updatedBoard.getDiagonal(TOP_LEFT);
+        assertThat(firstDiagonal.getMarker(0), is(equalTo(X)));
+    }
+
+    @Test
+    public void markCenter() {
+        Board updatedBoard = board.mark(1, 1, X);
+
+        Line firstRow = updatedBoard.getRow(1);
+        assertThat(firstRow.getMarker(1), is(equalTo(X)));
+        assertThat(firstRow.isEmpty(), is(false));
+
+
+        Line firstColumn = updatedBoard.getColumn(1);
+        assertThat(firstColumn.getMarker(1), is(equalTo(X)));
+        assertThat(firstColumn.isEmpty(), is(false));
+
+        Line firstDiagonal = updatedBoard.getDiagonal(BOTTOM_LEFT);
+        assertThat(firstDiagonal.getMarker(1), is(equalTo(X)));
+        assertThat(firstDiagonal.isEmpty(), is(false));
+
+
+        Line secondDiagonal = updatedBoard.getDiagonal(TOP_LEFT);
+        assertThat(secondDiagonal.getMarker(1), is(equalTo(X)));
+        assertThat(secondDiagonal.isEmpty(), is(false));
     }
 
 
