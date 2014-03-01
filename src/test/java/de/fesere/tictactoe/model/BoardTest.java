@@ -11,41 +11,24 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class BoardTest {
-    Board board;
+    Board Board;
 
     @Before
     public void setup() {
-        board = new Board();
+        Board = new ArrayBoard();
     }
 
     @Test
-    public void emptyBoardHasOnlyEmptyRows() {
-        for(int i = 0; i < 3; i++) {
-            Line row = board.getRow(i);
-            assertIsEmpty(row);
-        }
+    public void emptyBoardHasEmptyLines() {
+       for(Line line : Board.getLines()) {
+           assertThat(line.isEmpty(), is(true));
+       }
     }
 
-
-    @Test
-    public void emptyBoardHasOnlyEmptyColumns() {
-        for(int i = 0; i < 3; i++) {
-            Line column = board.getColumn(i);
-            assertIsEmpty(column);
-        }
-    }
-
-    @Test
-    public void emptyBoardHasOnlyEmptyDiagonals() {
-        for(int i = 0; i < 2; i++) {
-            Line column = board.getDiagonal(TOP_LEFT);
-            assertIsEmpty(column);
-        }
-    }
 
     @Test
     public void markTopCenterAffectsBothRowAndColumn() {
-        Board updatedBoard = board.mark(0, 1, X);
+        Board updatedBoard = Board.mark(0, 1, X);
 
         Line firstRow = updatedBoard.getRow(0);
         assertThat(firstRow.getMarker(1), is(equalTo(X)));
@@ -56,7 +39,7 @@ public class BoardTest {
 
     @Test
     public void markTopLeftAffectsBothRowAndColumnAndDiagonal() {
-        Board updatedBoard = board.mark(0, 0, X);
+        Board updatedBoard = Board.mark(0, 0, X);
 
         Line firstRow = updatedBoard.getRow(0);
         assertThat(firstRow.getMarker(0), is(equalTo(X)));
@@ -70,7 +53,7 @@ public class BoardTest {
 
     @Test
     public void markCenter() {
-        Board updatedBoard = board.mark(1, 1, X);
+        Board updatedBoard = Board.mark(1, 1, X);
 
         Line firstRow = updatedBoard.getRow(1);
         assertThat(firstRow.getMarker(1), is(equalTo(X)));
@@ -89,11 +72,5 @@ public class BoardTest {
         Line secondDiagonal = updatedBoard.getDiagonal(TOP_LEFT);
         assertThat(secondDiagonal.getMarker(1), is(equalTo(X)));
         assertThat(secondDiagonal.isEmpty(), is(false));
-    }
-
-
-
-    public void assertIsEmpty(Line line) {
-        assertThat(line.isEmpty(), is(true));
     }
 }

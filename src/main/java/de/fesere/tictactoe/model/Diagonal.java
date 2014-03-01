@@ -9,6 +9,7 @@ public enum Diagonal {
         if (this == TOP_LEFT) {
            return i;
         } else {
+            // for counting bottom up
            return 2-i;
         }
     }
