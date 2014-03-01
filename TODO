@@ -1,0 +1,10 @@
+Required features
+=====================
+* a player should be able to see a 3x3 board
+* a player should be able to set a marker on a free place
+** a player should be able to see free and marked places
+
+* a player should not be able to set a marker on a marked place
+* a player should be winner if he marked 3 places in a line
+
+
