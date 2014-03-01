@@ -1,11 +1,24 @@
 package de.fesere.tictactoe.model;
 
+import java.util.Arrays;
+
 public class Board {
 
     Marker[][] rows = new Marker[3][3];
 
     public Board() {
         initializeRows();
+    }
+
+    public Board(Board board, int markedRow, int markedColumn, Marker marker) {
+        duplicateBoard(board);
+        rows[markedRow][markedColumn] = marker;
+    }
+
+    private void duplicateBoard(Board board) {
+        for(int rowIndex = 0; rowIndex < 3; rowIndex++) {
+            rows[rowIndex] = Arrays.copyOf(board.rows[rowIndex], 3);
+        }
     }
 
     private void initializeRows() {
@@ -54,7 +67,6 @@ public class Board {
     }
 
     public Board mark(int rowIndex, int columnIndex, Marker marker) {
-        rows[rowIndex][columnIndex] = marker;
-        return this;
+        return new Board(this, rowIndex, columnIndex, marker);
     }
 }
