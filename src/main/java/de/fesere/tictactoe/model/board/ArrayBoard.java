@@ -1,8 +1,13 @@
-package de.fesere.tictactoe.model;
+package de.fesere.tictactoe.model.board;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import de.fesere.tictactoe.model.Board;
+import de.fesere.tictactoe.model.InvalidMoveException;
+import de.fesere.tictactoe.model.Marker;
+import de.fesere.tictactoe.model.Move;
+
+import java.util.*;
+
+import static de.fesere.tictactoe.model.Marker.NONE;
 
 public class ArrayBoard implements Board {
 
@@ -12,13 +17,13 @@ public class ArrayBoard implements Board {
         initializeRows();
     }
 
-    public ArrayBoard(ArrayBoard arrayBoard, int markedRow, int markedColumn, Marker marker) {
+    public ArrayBoard(ArrayBoard arrayBoard, Move move, Marker marker) {
         duplicateBoard(arrayBoard);
-        rows[markedRow][markedColumn] = marker;
+        rows[move.getRow()][move.getColumn()] = marker;
     }
 
     private void duplicateBoard(ArrayBoard arrayBoard) {
-        for(int rowIndex = 0; rowIndex < 3; rowIndex++) {
+        for (int rowIndex = 0; rowIndex < 3; rowIndex++) {
             rows[rowIndex] = Arrays.copyOf(arrayBoard.rows[rowIndex], 3);
         }
     }
@@ -31,19 +36,19 @@ public class ArrayBoard implements Board {
 
     private void initilizeRow(int rowIndex) {
         for (int i = 0; i < rows[rowIndex].length; i++) {
-            rows[rowIndex][i] = Marker.EMPTY;
+            rows[rowIndex][i] = NONE;
         }
     }
 
     @Override
     public List<Line> getLines() {
         List<Line> lines = new LinkedList<Line>();
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             lines.add(getRow(i));
             lines.add(getColumn(i));
         }
 
-        for(Diagonal diagonal : Diagonal.values()) {
+        for (Diagonal diagonal : Diagonal.values()) {
             lines.add(getDiagonal(diagonal));
         }
 
@@ -86,8 +91,29 @@ public class ArrayBoard implements Board {
     }
 
     @Override
-    public Board mark(int rowIndex, int columnIndex, Marker marker) {
-        return new ArrayBoard(this, rowIndex, columnIndex, marker);
+    public Board mark(Move move, Marker marker) {
+        if(isMarked(move)) {
+            throw new InvalidMoveException(move, " Is already taken");
+        }
+
+        return new ArrayBoard(this, move,  marker);
+    }
+
+    private boolean isMarked(Move move) {
+        return rows[move.getRow()][move.getColumn()].isMarked();
+    }
+
+    @Override
+    public Set<Move> getPossibleMoves() {
+        Set<Move> moves = new HashSet<>();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if(rows[i][j].isNone()) {
+                    moves.add(new Move(i,j));
+                }
+            }
+        }
+        return moves;
     }
 }
 

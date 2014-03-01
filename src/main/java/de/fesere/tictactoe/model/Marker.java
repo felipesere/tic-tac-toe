@@ -1,11 +1,15 @@
 package de.fesere.tictactoe.model;
 
 public enum Marker {
-    EMPTY,
+    NONE,
     X,
     O;
 
-    public boolean isEmpty() {
-        return this == EMPTY;
+    public boolean isNone() {
+        return this == NONE;
+    }
+
+    public boolean isMarked() {
+        return !isNone();
     }
 }

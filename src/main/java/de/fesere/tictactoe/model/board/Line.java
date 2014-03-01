@@ -1,8 +1,10 @@
-package de.fesere.tictactoe.model;
+package de.fesere.tictactoe.model.board;
+
+import de.fesere.tictactoe.model.Marker;
 
 public class Line {
 
-    private Marker [] marks = new Marker[3];
+    private Marker[] marks = new Marker[3];
 
     public Line(Marker first, Marker middle, Marker last) {
        marks[0] = first;
@@ -16,7 +18,7 @@ public class Line {
 
     public boolean isEmpty() {
        for(Marker mark : marks) {
-           if(!mark.isEmpty()) {
+           if(!mark.isNone()) {
                return false;
            }
        }
