@@ -1,43 +1,31 @@
 package de.fesere.tictactoe.model;
 
-import static de.fesere.tictactoe.model.Marker.*;
-
 public class Line {
 
-    private  Marker first;
-    private  Marker middle;
-    private  Marker last;
+    private static final int SIZE = 3;
+    private Marker [] marks = new Marker[SIZE];
 
     public Line(Marker first, Marker middle, Marker last) {
-        this.first = first;
-        this.middle = middle;
-        this.last = last;
+       marks[0] = first;
+       marks[1] = middle;
+       marks[2] = last;
     }
 
     public boolean isEmpty() {
-        return first == EMPTY &&
-                middle == EMPTY &&
-                last == EMPTY;
+       for(Marker mark : marks) {
+           if(!mark.isEmpty()) {
+               return false;
+           }
+       }
+
+        return true;
     }
 
     public Marker getMarker(int index) {
-        switch (index){
-            case 0 : return first;
-            case 1 : return middle;
-            case 2 : return last;
-            default: throw new IllegalArgumentException("Index must be 0,1,2");
-        }
+       return marks[index];
     }
 
     public void mark(int index, Marker marker) {
-        switch (index){
-            case 0 : first = marker;
-                     break;
-            case 1 : middle = marker;
-                    break;
-            case 2 : last = marker;
-                    break;
-            default: throw new IllegalArgumentException("Index must be 0,1,2");
-        }
+       marks[index] = marker;
     }
 }

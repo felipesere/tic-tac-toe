@@ -12,13 +12,20 @@ public class Board {
     List<Line> diagonals = new LinkedList<Line>();
 
     public Board() {
+        initializeRowsAndColumns();
+        initializeDiagonals();
+    }
+
+    private void initializeDiagonals() {
+        for(int i = 0; i < 2; i++) {
+            diagonals.add(new Line(EMPTY, EMPTY, EMPTY));
+        }
+    }
+
+    private void initializeRowsAndColumns() {
         for(int i = 0; i < 3; i++) {
             rows.add(new Line(EMPTY, EMPTY, EMPTY));
             columns.add(new Line(EMPTY, EMPTY, EMPTY));
-        }
-
-        for(int i = 0; i < 3; i++) {
-            diagonals.add(new Line(EMPTY, EMPTY, EMPTY));
         }
     }
 
@@ -36,12 +43,19 @@ public class Board {
     }
 
     public Board mark(int rowIndex, int columnIndex, Marker marker) {
-      Line row = rows.get(rowIndex);
-      row.mark(columnIndex, marker);
-
-      Line column = columns.get(columnIndex);
-      column.mark(rowIndex, marker);
+        markRow(rowIndex, columnIndex, marker);
+        markColumn(rowIndex, columnIndex, marker);
 
       return this;
+    }
+
+    private void markColumn(int rowIndex, int columnIndex, Marker marker) {
+        Line column = columns.get(columnIndex);
+        column.mark(rowIndex, marker);
+    }
+
+    private void markRow(int rowIndex, int columnIndex, Marker marker) {
+        Line row = rows.get(rowIndex);
+        row.mark(columnIndex, marker);
     }
 }

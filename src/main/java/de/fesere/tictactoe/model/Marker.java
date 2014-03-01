@@ -3,5 +3,9 @@ package de.fesere.tictactoe.model;
 public enum Marker {
     EMPTY,
     X,
-    O
+    O;
+
+    public boolean isEmpty() {
+        return this == EMPTY;
+    }
 }

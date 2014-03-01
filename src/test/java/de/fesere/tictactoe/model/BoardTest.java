@@ -44,8 +44,9 @@ public class BoardTest {
 
         Line secondColumn = updatedBoard.getColumn(1);
         assertThat(secondColumn.getMarker(0), is(equalTo(X)));
-
     }
+
+
 
     public void assertIsEmpty(Line line) {
         assertThat(line.isEmpty(), is(true));
