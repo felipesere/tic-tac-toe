@@ -1,4 +1,4 @@
-package de.fesere.tictactoe.model;
+package de.fesere.tictactoe.board;
 
 public enum Diagonal {
     TOP_LEFT,
