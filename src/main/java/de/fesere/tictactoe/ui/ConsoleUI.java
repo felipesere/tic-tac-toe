@@ -11,16 +11,22 @@ import java.util.List;
 
 public class ConsoleUI implements UI {
 
-    InputStream inputStream;
-    PrintStream outputStream;
+    BufferedReader reader;
+    PrintStream printer;
+    private Board board;
 
-    protected ConsoleUI(InputStream input, PrintStream output) {
-        inputStream = input;
-        outputStream = output;
+    protected ConsoleUI(InputStream input, OutputStream output) {
+        reader = new BufferedReader(new InputStreamReader(input));
+        printer = new PrintStream(output);
     }
 
     public ConsoleUI() {
       this(System.in, System.out);
+    }
+
+    @Override
+    public void use(Board board) {
+        this.board = board;
     }
 
     @Override
@@ -35,30 +41,50 @@ public class ConsoleUI implements UI {
     public void displayMoves(List<Move> moves) {
         for (int i= 0; i < moves.size(); i++) {
             Move move = moves.get(i);
-            outputStream.println("Move (" + i + ") :" + move.getRow() + ", " + move.getColumn());
+            printer.println("Move (" + i + ") :" + move.getRow() + ", " + move.getColumn());
         }
     }
 
     @Override
     public int getSelectedMove() {
-        outputStream.println("Your choice: ");
-        BufferedReader scanner = new BufferedReader(new InputStreamReader(inputStream));
-        int choice;
-        try {
-            String input = scanner.readLine();
-            choice = Integer.parseInt(input);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        printer.println("Your choice: ");
+
+        int choice = -1;
+        while(isInvalidInput(choice))  {
+            String input = readInput();
+            choice = extract(input);
         }
         return choice;
     }
 
+    private boolean isInvalidInput(int choice) {
+        return choice < 0 ||  board.getPossibleMoves().size() <= choice ;
+    }
+
+    private int extract(String input) {
+        try {
+            return Integer.parseInt(input);
+        }
+        catch (NumberFormatException nfe) {
+            return -1;
+        }
+    }
+
+    private String readInput() {
+        try {
+            return reader.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
+
     @Override
     public void showWinner(Player player) {
-        outputStream.println("Player " + player + " has won");
+        printer.println("Player " + player + " has won");
     }
 
     private void printRow(Line row) {
-        outputStream.println("[" + row.getMarker(0) + "][" + row.getMarker(1) + "][" + row.getMarker(2) + "]");
+        printer.println("[" + row.getMarker(0) + "][" + row.getMarker(1) + "][" + row.getMarker(2) + "]");
     }
 }

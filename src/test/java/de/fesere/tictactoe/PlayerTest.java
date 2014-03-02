@@ -48,6 +48,11 @@ public class PlayerTest {
         return new UI() {
 
             int choice = -1;
+
+            @Override
+            public void use(Board board) {
+            }
+
             @Override
             public void displayBoard(Board board) {
             }
@@ -72,4 +77,8 @@ public class PlayerTest {
     private int getNumberOfPossibleMoves(Board board) {
         return board.getPossibleMoves().size();
     }
+
+
+
+
 }

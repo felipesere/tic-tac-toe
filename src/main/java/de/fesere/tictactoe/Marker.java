@@ -12,4 +12,16 @@ public enum Marker {
     public boolean isMarked() {
         return !isNone();
     }
+
+
+    @Override
+    public String toString() {
+        switch (this) {
+            case NONE : return " ";
+            case  X   : return "X";
+            case  O   : return "O";
+        }
+
+        return "Type did not match!";
+    }
 }

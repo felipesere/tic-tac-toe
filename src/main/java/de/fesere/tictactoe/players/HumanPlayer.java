@@ -26,11 +26,6 @@ public class HumanPlayer implements Player {
         return board.mark(move, marker);
     }
 
-    @Override
-    public Marker getMarker() {
-        return marker;
-    }
-
     private Move selectMove(List<Move> possibleMoves) {
         userInterface.displayMoves(possibleMoves);
         int choice = userInterface.getSelectedMove();
