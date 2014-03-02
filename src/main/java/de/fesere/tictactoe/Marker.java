@@ -1,4 +1,4 @@
-package de.fesere.tictactoe.model;
+package de.fesere.tictactoe;
 
 public enum Marker {
     NONE,

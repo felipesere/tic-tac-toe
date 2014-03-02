@@ -1,10 +1,9 @@
-package de.fesere.tictactoe.model;
+package de.fesere.tictactoe;
 
-import de.fesere.tictactoe.model.board.Diagonal;
-import de.fesere.tictactoe.model.board.Line;
+import de.fesere.tictactoe.board.Diagonal;
+import de.fesere.tictactoe.board.Line;
 
 import java.util.List;
-import java.util.Set;
 
 public interface Board {
     List<Line> getLines();
@@ -17,5 +16,7 @@ public interface Board {
 
     Board mark(Move move, Marker marker);
 
-    Set<Move> getPossibleMoves();
+    List<Move> getPossibleMoves();
+
+    boolean hasWinner();
 }

@@ -1,13 +1,13 @@
-package de.fesere.tictactoe.model.board;
+package de.fesere.tictactoe.board;
 
-import de.fesere.tictactoe.model.Board;
-import de.fesere.tictactoe.model.InvalidMoveException;
-import de.fesere.tictactoe.model.Marker;
-import de.fesere.tictactoe.model.Move;
+import de.fesere.tictactoe.Board;
+import de.fesere.tictactoe.InvalidMoveException;
+import de.fesere.tictactoe.Marker;
+import de.fesere.tictactoe.Move;
 
 import java.util.*;
 
-import static de.fesere.tictactoe.model.Marker.NONE;
+import static de.fesere.tictactoe.Marker.NONE;
 
 public class ArrayBoard implements Board {
 
@@ -104,8 +104,8 @@ public class ArrayBoard implements Board {
     }
 
     @Override
-    public Set<Move> getPossibleMoves() {
-        Set<Move> moves = new HashSet<>();
+    public List<Move> getPossibleMoves() {
+        List<Move> moves = new LinkedList<>();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if(rows[i][j].isNone()) {
@@ -114,6 +114,44 @@ public class ArrayBoard implements Board {
             }
         }
         return moves;
+    }
+
+    @Override
+    public boolean hasWinner() {
+        return hasWinningRows() || hasWinningColumns() || hasWinningDiagonals();
+    }
+
+    private boolean hasWinningRows() {
+        for(int i = 0; i < 3; i++) {
+           Line line = getRow(i);
+           if(line.hasWinner()) {
+               return true;
+           }
+        }
+
+        return false;
+    }
+
+    private boolean hasWinningColumns() {
+        for(int i = 0; i < 3; i++) {
+            Line line = getColumn(i);
+            if(line.hasWinner()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean hasWinningDiagonals() {
+        for(Diagonal diagonal : Diagonal.values()) {
+            Line line = getDiagonal(diagonal);
+            if(line.hasWinner()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 
