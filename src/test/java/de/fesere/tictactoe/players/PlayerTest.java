@@ -1,5 +1,6 @@
-package de.fesere.tictactoe;
+package de.fesere.tictactoe.players;
 
+import de.fesere.tictactoe.*;
 import de.fesere.tictactoe.board.ArrayBoard;
 import de.fesere.tictactoe.players.HumanPlayer;
 import de.fesere.tictactoe.players.RandomAIPlayer;

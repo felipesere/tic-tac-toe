@@ -42,22 +42,43 @@ public class ArrayBoard implements Board {
 
     @Override
     public List<Line> getLines() {
-        List<Line> lines = new LinkedList<Line>();
-        for (int i = 0; i < 3; i++) {
-            lines.add(getRow(i));
-            lines.add(getColumn(i));
-        }
-
-        for (Diagonal diagonal : Diagonal.values()) {
-            lines.add(getDiagonal(diagonal));
-        }
-
+        List<Line> lines = new LinkedList<>();
+        lines.addAll(getRows());
+        lines.addAll(getColumns());
+        lines.addAll(getDiagonals());
         return lines;
     }
 
     @Override
     public Line getRow(int rowIndex) {
         return new Line(rows[rowIndex]);
+    }
+
+    @Override
+    public List<Line> getRows() {
+        List<Line> rows = new LinkedList<>();
+        for(int i=0; i < 3; i++) {
+            rows.add(getRow(i));
+        }
+
+        return rows;
+    }
+
+    public List<Line> getColumns() {
+        List<Line> rows = new LinkedList<>();
+        for(int i=0; i < 3; i++) {
+            rows.add(getColumn(i));
+        }
+
+        return rows;
+    }
+
+    public List<Line> getDiagonals() {
+        List<Line> diagonals = new LinkedList<>();
+        for (Diagonal diagonal : Diagonal.values()) {
+            diagonals.add(getDiagonal(diagonal));
+        }
+        return diagonals;
     }
 
     @Override
@@ -122,8 +143,7 @@ public class ArrayBoard implements Board {
     }
 
     private boolean hasWinningRows() {
-        for(int i = 0; i < 3; i++) {
-           Line line = getRow(i);
+        for(Line line : getRows()) {
            if(line.hasWinner()) {
                return true;
            }
@@ -133,8 +153,7 @@ public class ArrayBoard implements Board {
     }
 
     private boolean hasWinningColumns() {
-        for(int i = 0; i < 3; i++) {
-            Line line = getColumn(i);
+        for(Line line : getColumns()) {
             if(line.hasWinner()) {
                 return true;
             }
@@ -144,8 +163,7 @@ public class ArrayBoard implements Board {
     }
 
     private boolean hasWinningDiagonals() {
-        for(Diagonal diagonal : Diagonal.values()) {
-            Line line = getDiagonal(diagonal);
+       for(Line line : getDiagonals()) {
             if(line.hasWinner()) {
                 return true;
             }
