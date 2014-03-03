@@ -13,6 +13,16 @@ public enum Marker {
         return !isNone();
     }
 
+    public Marker other() {
+        if(this == X) {
+            return O;
+        }
+        if( this == O) {
+            return X;
+        }
+        return null;
+    }
+
 
     @Override
     public String toString() {
