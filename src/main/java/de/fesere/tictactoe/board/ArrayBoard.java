@@ -142,6 +142,22 @@ public class ArrayBoard implements Board {
         return hasWinningRows() || hasWinningColumns() || hasWinningDiagonals();
     }
 
+    @Override
+    public boolean hasDraw() {
+        return !hasWinner() && everythingMarked();
+    }
+
+    private boolean everythingMarked() {
+        for(int i =0; i < 3; i++) {
+            for(int j= 0; j< 3; j++) {
+                if(rows[i][j].isNone()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     private boolean hasWinningRows() {
         for(Line line : getRows()) {
            if(line.hasWinner()) {

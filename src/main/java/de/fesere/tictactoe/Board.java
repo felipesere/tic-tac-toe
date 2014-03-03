@@ -25,4 +25,6 @@ public interface Board {
     List<Move> getPossibleMoves();
 
     boolean hasWinner();
+
+    boolean hasDraw();
 }
