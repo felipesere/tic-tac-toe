@@ -13,7 +13,6 @@ public class ConsoleUI implements UI {
 
     BufferedReader reader;
     PrintStream printer;
-    private Board board;
 
     protected ConsoleUI(InputStream input, OutputStream output) {
         reader = new BufferedReader(new InputStreamReader(input));
@@ -22,11 +21,6 @@ public class ConsoleUI implements UI {
 
     public ConsoleUI() {
       this(System.in, System.out);
-    }
-
-    @Override
-    public void use(Board board) {
-        this.board = board;
     }
 
     @Override
@@ -49,19 +43,20 @@ public class ConsoleUI implements UI {
     }
 
     @Override
-    public int getSelectedMove() {
+    public int getSelectedMove(List<Move> possibleMoves) {
         printer.println("Your choice: ");
 
+        int upperLimit = possibleMoves.size();
         int choice = -1;
-        while(!isValid(choice))  {
+        while(!isValid(choice, upperLimit))  {
             String input = readInput();
             choice = extract(input);
         }
         return choice;
     }
 
-    private boolean isValid(int choice) {
-        return 0 <= choice && choice < board.getPossibleMoves().size();
+    private boolean isValid(int choice, int upperLimit) {
+        return 0 <= choice && choice < upperLimit;
     }
 
     private int extract(String input) {
