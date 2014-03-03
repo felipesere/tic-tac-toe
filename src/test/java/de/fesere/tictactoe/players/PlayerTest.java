@@ -1,6 +1,9 @@
 package de.fesere.tictactoe.players;
 
-import de.fesere.tictactoe.*;
+import de.fesere.tictactoe.Board;
+import de.fesere.tictactoe.Marker;
+import de.fesere.tictactoe.Move;
+import de.fesere.tictactoe.Player;
 import de.fesere.tictactoe.board.ArrayBoard;
 import de.fesere.tictactoe.ui.UI;
 import org.junit.Before;

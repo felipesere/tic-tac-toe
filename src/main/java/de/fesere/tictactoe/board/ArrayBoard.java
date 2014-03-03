@@ -1,11 +1,13 @@
 package de.fesere.tictactoe.board;
 
 import de.fesere.tictactoe.Board;
-import de.fesere.tictactoe.exceptions.InvalidMoveException;
 import de.fesere.tictactoe.Marker;
 import de.fesere.tictactoe.Move;
+import de.fesere.tictactoe.exceptions.InvalidMoveException;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import static de.fesere.tictactoe.Marker.NONE;
 
