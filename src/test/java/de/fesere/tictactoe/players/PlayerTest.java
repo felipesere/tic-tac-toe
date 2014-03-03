@@ -2,8 +2,6 @@ package de.fesere.tictactoe.players;
 
 import de.fesere.tictactoe.*;
 import de.fesere.tictactoe.board.ArrayBoard;
-import de.fesere.tictactoe.players.HumanPlayer;
-import de.fesere.tictactoe.players.RandomAIPlayer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,10 +49,6 @@ public class PlayerTest {
             int choice = -1;
 
             @Override
-            public void use(Board board) {
-            }
-
-            @Override
             public void displayBoard(Board board) {
             }
 
@@ -65,7 +59,7 @@ public class PlayerTest {
             }
 
             @Override
-            public int getSelectedMove() {
+            public int getSelectedMove(List<Move> moves) {
                 return choice;
             }
 

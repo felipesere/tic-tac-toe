@@ -25,9 +25,8 @@ public class ConsoleUITest {
 
         InputStream input = sequenceTypedByUser("3");
         UI userInterface = new ConsoleUI(input, outputStream);
-        userInterface.use(board);
 
-        int result = userInterface.getSelectedMove();
+        int result = userInterface.getSelectedMove(board.getPossibleMoves());
         assertThat(result, is(3));
     }
 
@@ -36,9 +35,8 @@ public class ConsoleUITest {
 
         InputStream input = sequenceTypedByUser("abc", "3");
         UI userInterface = new ConsoleUI(input, outputStream);
-        userInterface.use(board);
 
-        int result = userInterface.getSelectedMove();
+        int result = userInterface.getSelectedMove(board.getPossibleMoves());
         assertThat(result, is(3));
     }
 
@@ -47,9 +45,8 @@ public class ConsoleUITest {
 
         InputStream input = sequenceTypedByUser("-12", "3");
         UI userInterface = new ConsoleUI(input, outputStream);
-        userInterface.use(board);
 
-        int result = userInterface.getSelectedMove();
+        int result = userInterface.getSelectedMove(board.getPossibleMoves());
         assertThat(result, is(3));
     }
 
@@ -59,9 +56,8 @@ public class ConsoleUITest {
 
         InputStream input = sequenceTypedByUser("9", "3");
         UI userInterface = new ConsoleUI(input, outputStream);
-        userInterface.use(board);
 
-        int result = userInterface.getSelectedMove();
+        int result = userInterface.getSelectedMove(board.getPossibleMoves());
         assertThat(result, is(3));
     }
 
