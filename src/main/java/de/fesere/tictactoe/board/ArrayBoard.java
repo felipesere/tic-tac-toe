@@ -1,7 +1,7 @@
 package de.fesere.tictactoe.board;
 
 import de.fesere.tictactoe.Board;
-import de.fesere.tictactoe.InvalidMoveException;
+import de.fesere.tictactoe.exceptions.InvalidMoveException;
 import de.fesere.tictactoe.Marker;
 import de.fesere.tictactoe.Move;
 
@@ -10,8 +10,9 @@ import java.util.*;
 import static de.fesere.tictactoe.Marker.NONE;
 
 public class ArrayBoard implements Board {
+    private static final int SIZE = 3;
 
-    Marker[][] rows = new Marker[3][3];
+    Marker[][] rows = new Marker[SIZE][SIZE];
 
     public ArrayBoard() {
         initializeRows();
@@ -23,19 +24,19 @@ public class ArrayBoard implements Board {
     }
 
     private void duplicateBoard(ArrayBoard arrayBoard) {
-        for (int rowIndex = 0; rowIndex < 3; rowIndex++) {
-            rows[rowIndex] = Arrays.copyOf(arrayBoard.rows[rowIndex], 3);
+        for (int rowIndex = 0; rowIndex < SIZE; rowIndex++) {
+            rows[rowIndex] = Arrays.copyOf(arrayBoard.rows[rowIndex], SIZE);
         }
     }
 
     private void initializeRows() {
-        for (int i = 0; i < rows.length; i++) {
+        for (int i = 0; i < SIZE; i++) {
             initilizeRow(i);
         }
     }
 
     private void initilizeRow(int rowIndex) {
-        for (int i = 0; i < rows[rowIndex].length; i++) {
+        for (int i = 0; i < SIZE; i++) {
             rows[rowIndex][i] = NONE;
         }
     }
@@ -57,7 +58,7 @@ public class ArrayBoard implements Board {
     @Override
     public List<Line> getRows() {
         List<Line> rows = new LinkedList<>();
-        for(int i=0; i < 3; i++) {
+        for(int i=0; i < SIZE; i++) {
             rows.add(getRow(i));
         }
 
@@ -66,7 +67,7 @@ public class ArrayBoard implements Board {
 
     public List<Line> getColumns() {
         List<Line> rows = new LinkedList<>();
-        for(int i=0; i < 3; i++) {
+        for(int i=0; i < SIZE; i++) {
             rows.add(getColumn(i));
         }
 
@@ -88,8 +89,8 @@ public class ArrayBoard implements Board {
     }
 
     private Marker[] getColumnMarkers(int columnIndex) {
-        Marker[] result = new Marker[3];
-        for (int i = 0; i < 3; i++) {
+        Marker[] result = new Marker[SIZE];
+        for (int i = 0; i < SIZE; i++) {
             result[i] = rows[i][columnIndex];
         }
 
@@ -104,17 +105,17 @@ public class ArrayBoard implements Board {
     }
 
     private Marker[] getDiagonalMarkers(Diagonal diagonal) {
-        Marker[] diagonalMarkers = new Marker[3];
-        for (int i = 0; i < 3; i++) {
-            diagonalMarkers[i] = rows[diagonal.counter(i)][i];
+        Marker[] result = new Marker[SIZE];
+        for (int i = 0; i < SIZE; i++) {
+            result[i] = rows[diagonal.counter(i)][i];
         }
-        return diagonalMarkers;
+        return result;
     }
 
     @Override
     public Board mark(Move move, Marker marker) {
         if(isMarked(move)) {
-            throw new InvalidMoveException(move, " Is already taken");
+            throw new InvalidMoveException(" Is already taken");
         }
 
         return new ArrayBoard(this, move,  marker);
@@ -127,8 +128,8 @@ public class ArrayBoard implements Board {
     @Override
     public List<Move> getPossibleMoves() {
         List<Move> moves = new LinkedList<>();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 if(rows[i][j].isNone()) {
                     moves.add(new Move(i,j));
                 }
@@ -148,44 +149,28 @@ public class ArrayBoard implements Board {
     }
 
     private boolean everythingMarked() {
-        for(int i =0; i < 3; i++) {
-            for(int j= 0; j< 3; j++) {
-                if(rows[i][j].isNone()) {
-                    return false;
-                }
+       return getPossibleMoves().size() == 0;
+    }
+
+    private boolean hasWinner(List<Line> lines) {
+        for(Line line : lines) {
+            if(line.hasWinner()) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private boolean hasWinningRows() {
-        for(Line line : getRows()) {
-           if(line.hasWinner()) {
-               return true;
-           }
-        }
-
-        return false;
+      return hasWinner(getRows());
     }
 
     private boolean hasWinningColumns() {
-        for(Line line : getColumns()) {
-            if(line.hasWinner()) {
-                return true;
-            }
-        }
-
-        return false;
+        return hasWinner(getColumns());
     }
 
     private boolean hasWinningDiagonals() {
-       for(Line line : getDiagonals()) {
-            if(line.hasWinner()) {
-                return true;
-            }
-        }
-
-        return false;
+        return hasWinner(getDiagonals());
     }
 }
 

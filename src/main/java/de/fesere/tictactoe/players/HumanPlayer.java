@@ -1,6 +1,7 @@
 package de.fesere.tictactoe.players;
 
 import de.fesere.tictactoe.*;
+import de.fesere.tictactoe.ui.UI;
 
 import java.util.List;
 
@@ -24,6 +25,16 @@ public class HumanPlayer implements Player {
         List<Move> possibleMoves = board.getPossibleMoves();
         Move move = selectMove(possibleMoves);
         return board.mark(move, marker);
+    }
+
+    @Override
+    public String getName() {
+        return "Human Player";
+    }
+
+    @Override
+    public Marker getMarker() {
+        return marker;
     }
 
     private Move selectMove(List<Move> possibleMoves) {

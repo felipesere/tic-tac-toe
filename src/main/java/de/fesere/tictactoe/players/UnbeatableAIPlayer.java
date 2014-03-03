@@ -58,12 +58,15 @@ public class UnbeatableAIPlayer implements Player {
     }
 
     private int winnerScore(Marker marker, int iteration) {
+        int score;
         if(isOpponent(marker)) {
-            return -10 - iteration;
+            score = -10;
         }
         else{
-            return 10 -iteration;
+            score =  10;
         }
+
+        return score - iteration;
     }
 
     private boolean isOpponent(Marker marker) {
@@ -75,12 +78,13 @@ public class UnbeatableAIPlayer implements Player {
 
         int nextIteration = iteration+1;
 
-        Move move = findOptimalMove(updatedBoard, opponent,nextIteration );
+        Move move = findOptimalMove(updatedBoard, opponent, nextIteration);
 
         return calculateScoreOfMove(move, updatedBoard, opponent, nextIteration);
     }
 
 
+    @SuppressWarnings("NullableProblems")
     private class ScoredMove implements Comparable<ScoredMove>{
         private final Move move;
         private final Integer score;
@@ -91,7 +95,7 @@ public class UnbeatableAIPlayer implements Player {
         }
 
         @Override
-        public int compareTo(ScoredMove o) {
+        public int compareTo( ScoredMove o) {
             if(score.compareTo(o.score) == 0) {
                 return -1;
             }
@@ -99,5 +103,15 @@ public class UnbeatableAIPlayer implements Player {
                return score.compareTo(o.score);
             }
         }
+    }
+
+    @Override
+    public String getName() {
+        return "Unbeatable AI";
+    }
+
+    @Override
+    public Marker getMarker() {
+        return marker;
     }
 }

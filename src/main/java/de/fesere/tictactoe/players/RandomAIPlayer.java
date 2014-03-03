@@ -23,4 +23,14 @@ public class RandomAIPlayer implements Player {
         Move move =  possibleMoves.get(choice);
         return board.mark(move, marker);
     }
+
+    @Override
+    public String getName() {
+        return "Random AI";
+    }
+
+    @Override
+    public Marker getMarker() {
+        return marker;
+    }
 }

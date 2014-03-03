@@ -2,6 +2,7 @@ package de.fesere.tictactoe;
 
 import de.fesere.tictactoe.board.ArrayBoard;
 import de.fesere.tictactoe.board.Line;
+import de.fesere.tictactoe.exceptions.InvalidMoveException;
 import org.junit.Before;
 import org.junit.Test;
 

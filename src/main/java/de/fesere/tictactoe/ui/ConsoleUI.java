@@ -2,8 +2,6 @@ package de.fesere.tictactoe.ui;
 
 import de.fesere.tictactoe.Board;
 import de.fesere.tictactoe.Move;
-import de.fesere.tictactoe.Player;
-import de.fesere.tictactoe.UI;
 import de.fesere.tictactoe.board.Line;
 
 import java.io.*;
@@ -47,12 +45,16 @@ public class ConsoleUI implements UI {
         printer.println("Your choice: ");
 
         int upperLimit = possibleMoves.size();
-        int choice = -1;
-        while(!isValid(choice, upperLimit))  {
+        while(true)  {
             String input = readInput();
-            choice = extract(input);
+            int choice = extract(input);
+            if(isValid(choice, upperLimit)) {
+               return choice;
+            }
+            else {
+                printer.println("Please try again");
+            }
         }
-        return choice;
     }
 
     private boolean isValid(int choice, int upperLimit) {
@@ -78,7 +80,13 @@ public class ConsoleUI implements UI {
     }
 
     @Override
-    public void showWinner(Player player) {
-        printer.println("Player " + player + " has won");
+    public void showWinner(String name) {
+        printer.println("Player " + name + " has won");
+    }
+
+
+    @Override
+    public void showDraw() {
+        printer.println("It was a draw");
     }
 }

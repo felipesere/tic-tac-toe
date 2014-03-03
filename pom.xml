@@ -57,7 +57,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>de.fesere.tictactoe.Game</mainClass>
+                            <mainClass>de.fesere.tictactoe.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

@@ -2,6 +2,7 @@ package de.fesere.tictactoe.players;
 
 import de.fesere.tictactoe.*;
 import de.fesere.tictactoe.board.ArrayBoard;
+import de.fesere.tictactoe.ui.UI;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -64,7 +65,11 @@ public class PlayerTest {
             }
 
             @Override
-            public void showWinner(Player player) {
+            public void showWinner(String name) {
+            }
+
+            @Override
+            public void showDraw() {
             }
         };
     }

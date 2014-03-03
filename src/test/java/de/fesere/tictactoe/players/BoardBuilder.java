@@ -18,27 +18,28 @@ public class BoardBuilder {
     }
 
     public BoardBuilder row1(String row) {
-        Marker [] markers = getMarkerFromString(row);
+        Marker[] markers = getMarkerFromString(row);
         return applyMarkersOnRow(0, markers);
     }
 
     private Marker[] getMarkerFromString(String row) {
         Pattern pattern = Pattern.compile("(\\[.?\\])");
         Matcher m = pattern.matcher(row);
-        Marker [] marker = new Marker[3];
-        for(int i = 0; i<3; i++) {
-            m.find();
-            marker[i] =convertToMarker(m.group());
+        Marker[] marker = new Marker[3];
+        for (int i = 0; i < 3; i++) {
+            if (m.find()) {
+                marker[i] = convertToMarker(m.group());
+            }
         }
         return marker;
 
     }
 
     private Marker convertToMarker(String group) {
-        if(group.contains("X")) {
+        if (group.contains("X")) {
             return Marker.X;
         }
-        if(group.contains("O")) {
+        if (group.contains("O")) {
             return Marker.O;
         }
         return NONE;
@@ -46,8 +47,8 @@ public class BoardBuilder {
     }
 
 
-    private BoardBuilder applyMarkersOnRow(int row, Marker ... marker) {
-        for(int i =0; i < 3; i++) {
+    private BoardBuilder applyMarkersOnRow(int row, Marker... marker) {
+        for (int i = 0; i < 3; i++) {
             Move move = new Move(row, i);
             board = board.mark(move, marker[i]);
         }
@@ -55,12 +56,12 @@ public class BoardBuilder {
     }
 
     public BoardBuilder row2(String row) {
-        Marker [] markers = getMarkerFromString(row);
+        Marker[] markers = getMarkerFromString(row);
         return applyMarkersOnRow(1, markers);
     }
 
     public BoardBuilder row3(String row) {
-        Marker [] markers = getMarkerFromString(row);
+        Marker[] markers = getMarkerFromString(row);
         return applyMarkersOnRow(2, markers);
     }
 

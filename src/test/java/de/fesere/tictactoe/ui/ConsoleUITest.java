@@ -3,9 +3,7 @@ package de.fesere.tictactoe.ui;
 import de.fesere.tictactoe.Board;
 import de.fesere.tictactoe.Marker;
 import de.fesere.tictactoe.Move;
-import de.fesere.tictactoe.UI;
 import de.fesere.tictactoe.board.ArrayBoard;
-import junit.framework.Assert;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -13,6 +11,7 @@ import java.io.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.fail;
 
 public class ConsoleUITest {
 
@@ -92,8 +91,8 @@ public class ConsoleUITest {
         try {
             return new ByteArrayInputStream(result.getBytes("UTF-8"));
         } catch (UnsupportedEncodingException e) {
-            Assert.fail("Encoding was not supported!");
-            throw new RuntimeException();
+            fail("Encoding was not supported!");
+            throw new RuntimeException("Is never thrown due to fail()");
         }
     }
 

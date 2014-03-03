@@ -12,10 +12,6 @@ public interface Board {
 
     List<Line> getRows();
 
-    List<Line> getColumns();
-
-    List<Line> getDiagonals();
-
     Line getColumn(int columnIndex);
 
     Line getDiagonal(Diagonal diagonal);
