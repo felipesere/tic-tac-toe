@@ -18,18 +18,18 @@ public class UnbeatableAIPlayer implements Player {
 
     @Override
     public Board performMove(Board board) {
-        Move move = findOptimalMove(board, marker);
+        Move move = findOptimalMove(board, marker, 0);
 
         return board.mark(move, marker);
     }
 
-    private Move findOptimalMove(Board board, Marker marker) {
+    private Move findOptimalMove(Board board, Marker marker, int iteration) {
         List<Move> possibleMoves = board.getPossibleMoves();
 
         TreeSet<ScoredMove> scoredMoves = new TreeSet<>();
 
         for(Move move : possibleMoves ) {
-            int score = calculateScoreOfMove(move, board, marker);
+            int score = calculateScoreOfMove(move, board, marker, iteration);
             scoredMoves.add(new ScoredMove(move, score));
         }
 
@@ -44,25 +44,25 @@ public class UnbeatableAIPlayer implements Player {
         return scoredMoves.last().move;
     }
 
-    private int calculateScoreOfMove(Move move, Board board, Marker marker) {
+    private int calculateScoreOfMove(Move move, Board board, Marker marker, int iteration) {
         Board updatedBoard = board.mark(move, marker);
 
         if(updatedBoard.hasWinner()) {
-            return winnerScore(marker);
+            return winnerScore(marker, iteration);
         }
         if(updatedBoard.hasDraw()) {
             return 0;
         }
 
-        return scoreOfOppenentsOptimalMove(updatedBoard, marker.other());
+        return scoreOfOppenentsOptimalMove(updatedBoard, marker.other(), iteration);
     }
 
-    private int winnerScore(Marker marker) {
+    private int winnerScore(Marker marker, int iteration) {
         if(isOpponent(marker)) {
-            return -10;
+            return -10 - iteration;
         }
         else{
-            return 10;
+            return 10 -iteration;
         }
     }
 
@@ -70,11 +70,14 @@ public class UnbeatableAIPlayer implements Player {
         return marker != this.marker;
     }
 
-    private int scoreOfOppenentsOptimalMove(Board updatedBoard, Marker opponent) {
+    private int scoreOfOppenentsOptimalMove(Board updatedBoard, Marker opponent, int iteration) {
 
-        Move move = findOptimalMove(updatedBoard, opponent);
 
-        return calculateScoreOfMove(move, updatedBoard, opponent);
+        int nextIteration = iteration+1;
+
+        Move move = findOptimalMove(updatedBoard, opponent,nextIteration );
+
+        return calculateScoreOfMove(move, updatedBoard, opponent, nextIteration);
     }
 
 

@@ -2,7 +2,7 @@ package de.fesere.tictactoe;
 
 import de.fesere.tictactoe.board.ArrayBoard;
 import de.fesere.tictactoe.players.HumanPlayer;
-import de.fesere.tictactoe.players.RandomAIPlayer;
+import de.fesere.tictactoe.players.UnbeatableAIPlayer;
 import de.fesere.tictactoe.ui.ConsoleUI;
 
 import static de.fesere.tictactoe.Marker.O;
@@ -14,18 +14,29 @@ public class Game {
 
         UI userInterface = new ConsoleUI();
         Board board = new ArrayBoard();
-        Player[] players = {new HumanPlayer(X, userInterface), new RandomAIPlayer(O) };
+        Player[] players = {new HumanPlayer(X, userInterface), new UnbeatableAIPlayer(O) };
+       // Player[] players = {new UnbeatableAIPlayer(X), new UnbeatableAIPlayer(O) };
 
 
         Player player= null;
         int round = 0;
-        while(!board.hasWinner()) {
+        while(!isFinished(board)) {
             player = players[round % 2];
             board = player.performMove(board);
             round++;
         }
-        userInterface.showWinner(player);
+
+        if(board.hasWinner()) {
+            userInterface.showWinner(player);
+        }
+        else {
+            System.out.println("It was a draw...");
+        }
         userInterface.displayBoard(board);
+    }
+
+    private static boolean isFinished(Board board) {
+        return board.hasWinner() || board.hasDraw();
     }
 
 

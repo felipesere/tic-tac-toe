@@ -1,7 +1,6 @@
 package de.fesere.tictactoe.players;
 
 import de.fesere.tictactoe.Board;
-import de.fesere.tictactoe.ui.ConsoleUI;
 import org.junit.Test;
 
 import static de.fesere.tictactoe.Marker.X;
@@ -36,8 +35,6 @@ public class UnbeatableAIPlayerTest {
                                           .row3("[O][ ][ ]").build();
 
         Board result = player.performMove(initial);
-        ConsoleUI consoleUI = new ConsoleUI();
-        consoleUI.displayBoard(result);
 
         assertThat(result.getRow(2).getMarker(1), is(X));
         assertThat(result.hasWinner(), is(true));
