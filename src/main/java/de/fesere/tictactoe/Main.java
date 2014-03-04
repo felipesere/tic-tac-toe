@@ -20,11 +20,8 @@ public class Main {
         Board board = new ArrayBoard();
         GameFinishedNotifier notifyAfterFinish = new UINotifier(userInterface);
 
-
         TicTacToe ticTacToe = new TicTacToe(board, firstPlayer, secondPlayer);
-
         ticTacToe.play(notifyAfterFinish);
-
     }
 
 }

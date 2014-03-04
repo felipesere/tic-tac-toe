@@ -76,7 +76,6 @@ public class ConsoleUI implements UI {
             return reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
-
         }
     }
 

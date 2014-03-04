@@ -1,9 +1,10 @@
 package de.fesere.tictactoe.ui;
 
 import de.fesere.tictactoe.Board;
+import de.fesere.tictactoe.BoardBuilder;
 import de.fesere.tictactoe.Marker;
-import de.fesere.tictactoe.Move;
 import de.fesere.tictactoe.board.ArrayBoard;
+import de.fesere.tictactoe.players.RandomAI;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -71,10 +72,9 @@ public class ConsoleUITest {
 
     @Test
     public void testPrintBoardWithMarkers() throws UnsupportedEncodingException {
-        Board board = new ArrayBoard();
-        board = board.mark(new Move(0,0), Marker.O);
-        board = board.mark(new Move(1,1), Marker.X);
-        board = board.mark(new Move(2,2), Marker.O);
+        Board board =new BoardBuilder().row1("[O][ ][ ]")
+                                       .row2("[ ][X][ ]")
+                                       .row3("[ ][ ][O]").build();
 
 
         UI userInterface = new ConsoleUI(emptyInput(), outputStream);
@@ -84,6 +84,37 @@ public class ConsoleUITest {
     }
 
 
+    @Test
+    public void testPrintsAllPossibleMoves() {
+        Board board = new ArrayBoard();
+
+        UI userInterface = new ConsoleUI(emptyInput(), outputStream);
+        userInterface.displayMoves(board.getPossibleMoves());
+
+        assertThat(linesPrinted(), is(9));
+    }
+
+    @Test
+    public void testPrintsWinner() {
+        UI userInterface = new ConsoleUI(emptyInput(), outputStream);
+        userInterface.showWinner(new RandomAI(Marker.X));
+
+        assertThat(linesPrinted(), is(1));
+    }
+
+    @Test
+    public void testPrintsDraw() {
+        UI userInterface = new ConsoleUI(emptyInput(), outputStream);
+        userInterface.showDraw();
+
+        assertThat(linesPrinted(), is(1));
+    }
+
+
+
+    private int linesPrinted() {
+        return outputStream.toString().split("\n").length;
+    }
 
 
     public InputStream sequenceTypedByUser(String... values) {
