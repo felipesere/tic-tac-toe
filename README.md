@@ -1,7 +1,7 @@
 Tic-Tac-Toe for Java
 ======================
 
-A simple Tic-Tac-Toe programming.
+A simple Tic-Tac-Toe program written in Java.
 It currently only has  commandline interface.
 
 To play:
