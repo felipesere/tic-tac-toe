@@ -15,7 +15,7 @@ public class UINotifier implements GameFinishedNotifier {
     @Override
     public void notifyFinished(Board board, Player player) {
         if (board.hasWinner()) {
-            userInterface.showWinner(player.getName());
+            userInterface.showWinner(player);
         } else {
             userInterface.showDraw();
         }

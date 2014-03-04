@@ -1,7 +1,6 @@
 package de.fesere.tictactoe;
 
 import de.fesere.tictactoe.exceptions.InvalidGameConfigurationException;
-import de.fesere.tictactoe.players.BoardBuilder;
 import de.fesere.tictactoe.players.RandomAI;
 import org.junit.Test;
 
@@ -24,8 +23,8 @@ public class TicTacToeTest {
     @Test
     public void testGameLoopAlternatesCorrectly() {
         Board board = new BoardBuilder().row1("[O][ ][X]")
-                .row2("[X][ ][O]")
-                .row3("[ ][X][X]").build();
+                                        .row2("[X][ ][O]")
+                                        .row3("[ ][X][X]").build();
 
         firstPlayer = new ScriptedPlayer(X, new Move(0,1), new Move(2,0));
         secondPlayer = new ScriptedPlayer(O, new Move(1,1));

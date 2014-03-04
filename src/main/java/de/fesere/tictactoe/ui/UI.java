@@ -2,6 +2,7 @@ package de.fesere.tictactoe.ui;
 
 import de.fesere.tictactoe.Board;
 import de.fesere.tictactoe.Move;
+import de.fesere.tictactoe.Player;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface UI {
 
     int getSelectedMove(List<Move> moves);
 
-    void showWinner(String name);
+    void showWinner(Player player);
 
     void showDraw();
 }

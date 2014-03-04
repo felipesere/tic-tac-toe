@@ -1,6 +1,7 @@
 package de.fesere.tictactoe.players;
 
 import de.fesere.tictactoe.Board;
+import de.fesere.tictactoe.BoardBuilder;
 import de.fesere.tictactoe.Marker;
 import org.junit.Test;
 

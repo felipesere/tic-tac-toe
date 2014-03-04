@@ -1,8 +1,5 @@
-package de.fesere.tictactoe.players;
+package de.fesere.tictactoe;
 
-import de.fesere.tictactoe.Board;
-import de.fesere.tictactoe.Marker;
-import de.fesere.tictactoe.Move;
 import de.fesere.tictactoe.board.ArrayBoard;
 
 import java.util.regex.Matcher;

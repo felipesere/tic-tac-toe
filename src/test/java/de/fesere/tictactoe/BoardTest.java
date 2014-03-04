@@ -34,6 +34,7 @@ public class BoardTest {
 
     @Test
     public void markTopCenterAffectsBothRowAndColumn() {
+
         Board updatedBoard = board.mark(new Move(0,1), X);
 
         Line firstRow = updatedBoard.getRow(0);
@@ -100,8 +101,8 @@ public class BoardTest {
     @Test(expected = InvalidMoveException.class)
     public void canNotMarkPreviouslyMarkedBoard() {
         Move move = new Move(1,1);
-        Board updatedBoeard = board.mark(move, X);
-        updatedBoeard.mark(move, O);
+        Board updatedBoard = board.mark(move, X);
+        updatedBoard.mark(move, O);
     }
 
 
@@ -112,39 +113,25 @@ public class BoardTest {
 
     @Test
     public void threeInRowHasWinner() {
-        Move first = new Move(0,0);
-        Move second = new Move(0,1);
-        Move third = new Move(0,2);
-        Board result = applyMoves(X, first, second, third);
+        Board result = new BoardBuilder().row1("[X][X][X]").build();
 
         assertThat(result.hasWinner(), is(true));
     }
 
     @Test
     public void threeInColumnHasWinner() {
-        Move first = new Move(0,0);
-        Move second = new Move(1,0);
-        Move third = new Move(2,0);
-        Board result = applyMoves(X, first, second, third);
+        Board result = new BoardBuilder().row1("[X][][]")
+                                         .row2("[X][][]")
+                                         .row3("[X][][]").build();
 
         assertThat(result.hasWinner(), is(true));
     }
 
     @Test
     public void threeInDiagonalHasWinner() {
-        Move first = new Move(0,0);
-        Move second = new Move(1,1);
-        Move third = new Move(2,2);
-        Board result = applyMoves(X, first, second, third);
-
+        Board result = new BoardBuilder().row1("[X][ ][ ]")
+                                         .row2("[ ][X][ ]")
+                                         .row3("[ ][ ][X]").build();
         assertThat(result.hasWinner(), is(true));
-    }
-
-    private Board applyMoves(Marker marker, Move ... moves) {
-        Board result = board;
-        for(Move move : moves) {
-            result = result.mark(move, marker);
-        }
-        return result;
     }
 }

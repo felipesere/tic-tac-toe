@@ -2,6 +2,7 @@ package de.fesere.tictactoe.ui;
 
 import de.fesere.tictactoe.Board;
 import de.fesere.tictactoe.Move;
+import de.fesere.tictactoe.Player;
 import de.fesere.tictactoe.board.Line;
 
 import java.io.*;
@@ -80,8 +81,8 @@ public class ConsoleUI implements UI {
     }
 
     @Override
-    public void showWinner(String name) {
-        printer.println("Player " + name + " has won");
+    public void showWinner(Player player) {
+        printer.println("Player " + player.getName() + " has won");
     }
 
 

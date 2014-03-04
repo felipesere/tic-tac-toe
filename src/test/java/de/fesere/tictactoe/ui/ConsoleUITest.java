@@ -53,7 +53,7 @@ public class ConsoleUITest {
     public void testGetSelectedMoveWithInvalidInput_NotANumber_largerThanNumberOfChoices() {
         Board board = new ArrayBoard();
 
-        InputStream input = sequenceTypedByUser("9", "3");
+        InputStream input = sequenceTypedByUser("12", "3");
         UI userInterface = new ConsoleUI(input, outputStream);
 
         int result = userInterface.getSelectedMove(board.getPossibleMoves());
@@ -82,6 +82,8 @@ public class ConsoleUITest {
 
         assertThat(outputStream.toString(), is("[O][ ][ ]\n[ ][X][ ]\n[ ][ ][O]\n"));
     }
+
+
 
 
     public InputStream sequenceTypedByUser(String... values) {

@@ -64,7 +64,7 @@ public class PlayerTest {
             }
 
             @Override
-            public void showWinner(String name) {
+            public void showWinner(Player player) {
             }
 
             @Override
@@ -76,8 +76,4 @@ public class PlayerTest {
     private int getNumberOfPossibleMoves(Board board) {
         return board.getPossibleMoves().size();
     }
-
-
-
-
 }
