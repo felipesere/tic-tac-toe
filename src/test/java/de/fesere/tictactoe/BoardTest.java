@@ -17,10 +17,10 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.assertThat;
 
 public class BoardTest {
-    Board board;
+    private Board board;
 
     @Before
-    public void Listup() {
+    public void setup() {
         board = new ArrayBoard();
     }
 

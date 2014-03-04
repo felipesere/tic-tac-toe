@@ -15,8 +15,8 @@ import static org.junit.Assert.fail;
 
 public class ConsoleUITest {
 
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    Board board = new ArrayBoard();
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    private final Board board = new ArrayBoard();
 
 
     @Test

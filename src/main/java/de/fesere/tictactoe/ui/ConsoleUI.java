@@ -9,8 +9,8 @@ import java.util.List;
 
 public class ConsoleUI implements UI {
 
-    BufferedReader reader;
-    PrintStream printer;
+    private final BufferedReader reader;
+    private final PrintStream printer;
 
     protected ConsoleUI(InputStream input, OutputStream output) {
         reader = new BufferedReader(new InputStreamReader(input));

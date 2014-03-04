@@ -3,21 +3,17 @@ package de.fesere.tictactoe.players;
 import de.fesere.tictactoe.Board;
 import de.fesere.tictactoe.Marker;
 import de.fesere.tictactoe.Move;
-import de.fesere.tictactoe.Player;
 import de.fesere.tictactoe.ui.UI;
 
 import java.util.List;
 
-public class HumanPlayer implements Player {
+public class Human extends BasePlayer {
 
-    private final Marker marker;
-    private UI userInterface;
+    private final  UI userInterface;
 
-    public HumanPlayer(Marker marker, UI userInterface) {
-        if(marker.isNone()) {
-            throw new IllegalArgumentException("Marker must be either X or O");
-        }
-        this.marker = marker;
+    public Human(Marker marker, UI userInterface) {
+        super(marker);
+
         this.userInterface = userInterface;
     }
 
@@ -28,16 +24,6 @@ public class HumanPlayer implements Player {
         List<Move> possibleMoves = board.getPossibleMoves();
         Move move = selectMove(possibleMoves);
         return board.mark(move, marker);
-    }
-
-    @Override
-    public String getName() {
-        return "Human Player";
-    }
-
-    @Override
-    public Marker getMarker() {
-        return marker;
     }
 
     private Move selectMove(List<Move> possibleMoves) {

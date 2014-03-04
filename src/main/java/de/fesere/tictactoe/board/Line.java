@@ -4,9 +4,9 @@ import de.fesere.tictactoe.Marker;
 
 public class Line {
 
-    private Marker[] marks = new Marker[3];
+    private final Marker[] marks = new Marker[3];
 
-    public Line(Marker first, Marker middle, Marker last) {
+    private Line(Marker first, Marker middle, Marker last) {
        marks[0] = first;
        marks[1] = middle;
        marks[2] = last;

@@ -2,7 +2,7 @@ package de.fesere.tictactoe;
 
 import de.fesere.tictactoe.exceptions.InvalidGameConfigurationException;
 import de.fesere.tictactoe.players.BoardBuilder;
-import de.fesere.tictactoe.players.RandomAIPlayer;
+import de.fesere.tictactoe.players.RandomAI;
 import org.junit.Test;
 
 import static de.fesere.tictactoe.Marker.O;
@@ -12,20 +12,39 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TicTacToeTest {
 
-    Player firstPlayer = new RandomAIPlayer(X);
-    Player secondPlayer =  new RandomAIPlayer(O);
+    private Player firstPlayer = new RandomAI(X);
+    private Player secondPlayer =  new RandomAI(O);
 
     @Test(expected = InvalidGameConfigurationException.class)
     public void throwExceptionIfSameMarkingForBothPlayers(){
-        new TicTacToe(null, new RandomAIPlayer(X), new RandomAIPlayer(X));
+        new TicTacToe(null, new RandomAI(X), new RandomAI(X));
+    }
+
+
+    @Test
+    public void testGameLoopAlternatesCorrectly() {
+        Board board = new BoardBuilder().row1("[O][ ][X]")
+                .row2("[X][ ][O]")
+                .row3("[ ][X][X]").build();
+
+        firstPlayer = new ScriptedPlayer(X, new Move(0,1), new Move(2,0));
+        secondPlayer = new ScriptedPlayer(O, new Move(1,1));
+
+        TicTacToe ticTacToe = new TicTacToe(board,firstPlayer, secondPlayer);
+        ticTacToe.play(new GameFinishedNotifier() {
+            @Override
+            public void notifyFinished(Board board, Player player) {
+                assertThat(board.hasWinner(), is(true));
+            }
+        });
     }
 
 
     @Test
     public void correctNotificationOfPlayerXWinning() {
-        Board board = new BoardBuilder().row1("[X][X][X]")
+        Board board = new BoardBuilder().row1("[X][ ][X]")
                                         .row2("[X][O][O]")
-                                        .row3("[O][O][X|").build();
+                                        .row3("[O][O][X]").build();
 
         TicTacToe ticTacToe = new TicTacToe(board,firstPlayer, secondPlayer);
         ticTacToe.play(new GameFinishedNotifier() {
@@ -48,21 +67,6 @@ public class TicTacToeTest {
             @Override
             public void notifyFinished(Board board, Player player) {
                 assertThat(board.hasDraw(), is(true));
-            }
-        });
-    }
-
-    @Test
-    public void correctNotificationAfterSingleMove() {
-        Board board = new BoardBuilder().row1("[O][X][X]")
-                                        .row2("[X][O][O]")
-                                        .row3("[ ][X][X]").build();
-
-        TicTacToe ticTacToe = new TicTacToe(board,firstPlayer, secondPlayer);
-        ticTacToe.play(new GameFinishedNotifier() {
-            @Override
-            public void notifyFinished(Board board, Player player) {
-                assertThat(board.hasWinner(), is(true));
             }
         });
     }

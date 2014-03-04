@@ -1,8 +1,8 @@
 package de.fesere.tictactoe;
 
 import de.fesere.tictactoe.board.ArrayBoard;
-import de.fesere.tictactoe.players.HumanPlayer;
-import de.fesere.tictactoe.players.UnbeatableAIPlayer;
+import de.fesere.tictactoe.players.Human;
+import de.fesere.tictactoe.players.UnbeatableAI;
 import de.fesere.tictactoe.ui.ConsoleUI;
 import de.fesere.tictactoe.ui.UI;
 import de.fesere.tictactoe.ui.UINotifier;
@@ -15,8 +15,8 @@ public class Main {
     public static void main(String[] args) {
         UI userInterface = new ConsoleUI();
 
-        Player firstPlayer = new HumanPlayer(X, userInterface);
-        Player secondPlayer =  new UnbeatableAIPlayer(O);
+        Player firstPlayer = new Human(X, userInterface);
+        Player secondPlayer =  new UnbeatableAI(O);
         Board board = new ArrayBoard();
         GameFinishedNotifier notifyAfterFinish = new UINotifier(userInterface);
 

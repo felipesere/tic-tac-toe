@@ -27,7 +27,7 @@ public class PlayerTest {
     @Test
         public void test_performingMoveAddsMarker_forHuman() {
         UI dummyUI = createDummyUI();
-        Player player = new HumanPlayer(Marker.X, dummyUI);
+        Player player = new Human(Marker.X, dummyUI);
 
         int beforePossibleMoves = getNumberOfPossibleMoves(board);
         Board markedBoard = player.performMove(board);
@@ -38,7 +38,7 @@ public class PlayerTest {
 
     @Test
     public void test_performingMoveAddsMarker_forAI() {
-        Player player = new RandomAIPlayer(Marker.X);
+        Player player = new RandomAI(Marker.X);
 
         int beforePossibleMoves = getNumberOfPossibleMoves(board);
         Board markedBoard = player.performMove(board);
@@ -50,21 +50,17 @@ public class PlayerTest {
     private UI createDummyUI() {
         return new UI() {
 
-            int choice = -1;
-
             @Override
             public void displayBoard(Board board) {
             }
 
             @Override
             public void displayMoves(List<Move> moves) {
-                choice = new Random().nextInt(moves.size());
-
             }
 
             @Override
             public int getSelectedMove(List<Move> moves) {
-                return choice;
+                return new Random().nextInt(moves.size());
             }
 
             @Override

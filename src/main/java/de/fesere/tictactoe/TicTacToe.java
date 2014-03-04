@@ -2,7 +2,6 @@ package de.fesere.tictactoe;
 
 import de.fesere.tictactoe.exceptions.InvalidGameConfigurationException;
 
-import static de.fesere.tictactoe.Marker.X;
 
 public class TicTacToe {
 
@@ -11,9 +10,9 @@ public class TicTacToe {
     private Board board;
 
     public TicTacToe(Board board, Player firstPlayer, Player secondPlayer) {
+        validatePlayers(firstPlayer, secondPlayer);
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
-        validatePlayers(firstPlayer, secondPlayer);
         this.board = board;
     }
 
@@ -25,23 +24,14 @@ public class TicTacToe {
     }
 
     public void play(GameFinishedNotifier notifier) {
-        Player player = getStartingPlayer();
+
+        Player player = secondPlayer;
         while (isNotFinished(board)) {
-            board = player.performMove(board);
             player = otherPlayer(player);
+            board = player.performMove(board);
         }
 
         notifier.notifyFinished(board, player);
-
-    }
-
-    private Player getStartingPlayer() {
-        if(firstPlayer.getMarker() == X) {
-            return firstPlayer;
-        }
-        else {
-            return secondPlayer;
-        }
     }
 
     private static boolean isNotFinished(Board board) {

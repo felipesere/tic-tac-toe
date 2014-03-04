@@ -17,10 +17,7 @@ public enum Marker {
         if(this == X) {
             return O;
         }
-        if( this == O) {
-            return X;
-        }
-        return null;
+        return X;
     }
 
 

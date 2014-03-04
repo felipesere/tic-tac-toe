@@ -14,13 +14,13 @@ import static de.fesere.tictactoe.Marker.NONE;
 public class ArrayBoard implements Board {
     private static final int SIZE = 3;
 
-    Marker[][] rows = new Marker[SIZE][SIZE];
+    private final Marker[][] rows = new Marker[SIZE][SIZE];
 
     public ArrayBoard() {
         initializeRows();
     }
 
-    public ArrayBoard(ArrayBoard arrayBoard, Move move, Marker marker) {
+    private ArrayBoard(ArrayBoard arrayBoard, Move move, Marker marker) {
         duplicateBoard(arrayBoard);
         rows[move.getRow()][move.getColumn()] = marker;
     }

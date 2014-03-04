@@ -5,7 +5,7 @@ import de.fesere.tictactoe.GameFinishedNotifier;
 import de.fesere.tictactoe.Player;
 
 public class UINotifier implements GameFinishedNotifier {
-    UI userInterface;
+    private final UI userInterface;
 
     public UINotifier(UI userInterface) {
         this.userInterface = userInterface;

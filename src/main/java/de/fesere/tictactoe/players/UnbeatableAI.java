@@ -3,17 +3,14 @@ package de.fesere.tictactoe.players;
 import de.fesere.tictactoe.Board;
 import de.fesere.tictactoe.Marker;
 import de.fesere.tictactoe.Move;
-import de.fesere.tictactoe.Player;
 
 import java.util.List;
 import java.util.TreeSet;
 
-public class UnbeatableAIPlayer implements Player {
+public class UnbeatableAI extends  BasePlayer {
 
-    private final Marker marker;
-
-    public UnbeatableAIPlayer(Marker marker) {
-        this.marker = marker;
+    public UnbeatableAI(Marker marker) {
+        super(marker);
     }
 
     @Override
@@ -39,9 +36,9 @@ public class UnbeatableAIPlayer implements Player {
 
     private Move chooseMoveBasedOnPlayer(TreeSet<ScoredMove> scoredMoves, Marker marker) {
         if(isOpponent(marker)) {
-            return scoredMoves.first().move;
+            return scoredMoves.first().getMove();
         }
-        return scoredMoves.last().move;
+        return scoredMoves.last().getMove();
     }
 
     private int calculateScoreOfMove(Move move, Board board, Marker marker, int iteration) {
@@ -81,37 +78,5 @@ public class UnbeatableAIPlayer implements Player {
         Move move = findOptimalMove(updatedBoard, opponent, nextIteration);
 
         return calculateScoreOfMove(move, updatedBoard, opponent, nextIteration);
-    }
-
-
-    @SuppressWarnings("NullableProblems")
-    private class ScoredMove implements Comparable<ScoredMove>{
-        private final Move move;
-        private final Integer score;
-
-        public ScoredMove(Move move, int score) {
-            this.move = move;
-            this.score = score;
-        }
-
-        @Override
-        public int compareTo( ScoredMove o) {
-            if(score.compareTo(o.score) == 0) {
-                return -1;
-            }
-            else {
-               return score.compareTo(o.score);
-            }
-        }
-    }
-
-    @Override
-    public String getName() {
-        return "Unbeatable AI";
-    }
-
-    @Override
-    public Marker getMarker() {
-        return marker;
     }
 }
