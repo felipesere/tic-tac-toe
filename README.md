@@ -15,3 +15,5 @@ mvn clean package
 
 Status:
 -------------
+[![Build Status](https://travis-ci.org/felipesere/tic-tac-toe.png?branch=master)](https://travis-ci.org/felipesere/tic-tac-toe)
+
