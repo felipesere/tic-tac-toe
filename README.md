@@ -8,10 +8,18 @@ To play:
 
 ```
 git clone https://github.com/felipesere/tic-tac-toe.git
+cd tic-tac-toe
 mvn clean package
 ./play.sh
 
 ```
+Remember that the rows and columns displayed are zero-indexed.
+As such, the move
+```
+Move (3) : 0,1
+```
+is in the first row, the center slot.
+
 
 Status:
 -------------

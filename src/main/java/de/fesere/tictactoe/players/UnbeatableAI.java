@@ -71,8 +71,6 @@ public class UnbeatableAI extends  BasePlayer {
     }
 
     private int scoreOfOppenentsOptimalMove(Board updatedBoard, Marker opponent, int iteration) {
-
-
         int nextIteration = iteration+1;
 
         Move move = findOptimalMove(updatedBoard, opponent, nextIteration);
