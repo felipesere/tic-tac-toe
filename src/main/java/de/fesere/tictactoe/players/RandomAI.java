@@ -18,6 +18,6 @@ public class RandomAI extends BasePlayer {
         List<Move> possibleMoves = board.getPossibleMoves();
         int choice = new Random().nextInt(possibleMoves.size());
         Move move =  possibleMoves.get(choice);
-        return board.mark(move, marker);
+        return board.applyMove(move, marker);
     }
 }

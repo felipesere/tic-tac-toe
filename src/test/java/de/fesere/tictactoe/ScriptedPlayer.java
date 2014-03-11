@@ -14,7 +14,7 @@ public class ScriptedPlayer implements Player {
     @Override
     public Board performMove(Board board) {
 
-        Board result = board.mark(sequence[moveNumber], marker);
+        Board result = board.applyMove(sequence[moveNumber], marker);
         moveNumber++;
 
         return result;

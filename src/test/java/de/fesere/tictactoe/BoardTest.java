@@ -34,7 +34,7 @@ public class BoardTest {
     @Test
     public void markTopCenterAffectsBothRowAndColumn() {
 
-        Board updatedBoard = board.mark(new Move(0,1), X);
+        Board updatedBoard = board.applyMove(new Move(0, 1), X);
 
         List<Line> lines = keepNonEmptyLines(updatedBoard.getLines());
         assertThat(lines, hasSize(2));
@@ -43,7 +43,7 @@ public class BoardTest {
 
     @Test
     public void markTopLeftAffectsBothRowAndColumnAndDiagonal() {
-        Board updatedBoard = board.mark(new Move(0,0), X);
+        Board updatedBoard = board.applyMove(new Move(0, 0), X);
 
         List<Line> lines = keepNonEmptyLines(updatedBoard.getLines());
         assertThat(lines, hasSize(3));
@@ -51,7 +51,7 @@ public class BoardTest {
 
     @Test
     public void markCenterAndCheckForAll() {
-        Board updatedBoard = board.mark(new Move(1,1), X);
+        Board updatedBoard = board.applyMove(new Move(1, 1), X);
 
         List<Line> lines = keepNonEmptyLines(updatedBoard.getLines());
         assertThat(lines, hasSize(4));
@@ -65,7 +65,7 @@ public class BoardTest {
 
     @Test
     public void markingReducesNumberOfPossibleMoves() {
-        Board updatedBoard = board.mark(new Move(0, 0), O);
+        Board updatedBoard = board.applyMove(new Move(0, 0), O);
         List<Move> possibleMoves = updatedBoard.getPossibleMoves();
         assertThat(possibleMoves, hasSize(8));
 
@@ -77,8 +77,8 @@ public class BoardTest {
     @Test(expected = InvalidMoveException.class)
     public void canNotMarkPreviouslyMarkedBoard() {
         Move move = new Move(1,1);
-        Board updatedBoard = board.mark(move, X);
-        updatedBoard.mark(move, O);
+        Board updatedBoard = board.applyMove(move, X);
+        updatedBoard.applyMove(move, O);
     }
 
 

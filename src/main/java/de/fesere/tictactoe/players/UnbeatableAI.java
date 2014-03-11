@@ -17,7 +17,7 @@ public class UnbeatableAI extends  BasePlayer {
     public Board performMove(Board board) {
         Move move = findOptimalMove(board, marker, 0);
 
-        return board.mark(move, marker);
+        return board.applyMove(move, marker);
     }
 
     private Move findOptimalMove(Board board, Marker marker, int iteration) {
@@ -31,7 +31,6 @@ public class UnbeatableAI extends  BasePlayer {
         }
 
         return chooseMoveBasedOnPlayer(scoredMoves, marker);
-
     }
 
     private Move chooseMoveBasedOnPlayer(TreeSet<ScoredMove> scoredMoves, Marker marker) {
@@ -42,7 +41,7 @@ public class UnbeatableAI extends  BasePlayer {
     }
 
     private int calculateScoreOfMove(Move move, Board board, Marker marker, int iteration) {
-        Board updatedBoard = board.mark(move, marker);
+        Board updatedBoard = board.applyMove(move, marker);
 
         if(updatedBoard.hasWinner()) {
             return winnerScore(marker, iteration);

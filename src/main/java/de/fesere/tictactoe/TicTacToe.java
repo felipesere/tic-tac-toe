@@ -12,8 +12,6 @@ public class TicTacToe {
         this.board = board;
     }
 
-
-
     public void play(GameFinishedNotifier notifier) {
 
         Player player = secondPlayer;
@@ -32,6 +30,5 @@ public class TicTacToe {
         else {
             return secondPlayer;
         }
-
     }
 }

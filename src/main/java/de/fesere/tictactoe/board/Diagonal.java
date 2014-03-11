@@ -4,7 +4,6 @@ public enum Diagonal {
     TOP_LEFT,
     BOTTOM_LEFT;
 
-
     public int counter(int i) {
         if (this == TOP_LEFT) {
            return i;
@@ -13,5 +12,4 @@ public enum Diagonal {
            return 2-i;
         }
     }
-
 }

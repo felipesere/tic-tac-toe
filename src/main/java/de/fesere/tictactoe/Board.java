@@ -5,18 +5,17 @@ import java.util.List;
 public interface Board {
     List<Line> getLines();
 
-    Board mark(Move move, Marker marker);
+    Board applyMove(Move move, Marker marker);
 
     List<Move> getPossibleMoves();
+
+    List<Line> getRows();
 
     boolean isFinished();
 
     boolean hasWinner();
 
     boolean hasDraw();
-
-    List<Line> getRows();
-
 
     public interface Line {
         boolean isEmpty();

@@ -23,7 +23,7 @@ public class Human extends BasePlayer {
 
         List<Move> possibleMoves = board.getPossibleMoves();
         Move move = selectMove(possibleMoves);
-        return board.mark(move, marker);
+        return board.applyMove(move, marker);
     }
 
     private Move selectMove(List<Move> possibleMoves) {

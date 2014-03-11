@@ -52,17 +52,13 @@ public class ArrayBoard implements Board {
         return lines;
     }
 
-    public Line getRow(int rowIndex) {
-        return new LineImpl(rows[rowIndex]);
-    }
-
     public List<Line> getRows() {
-        List<Line> rows = new LinkedList<>();
+        List<Line> result = new LinkedList<>();
         for(int i=0; i < SIZE; i++) {
-            rows.add(getRow(i));
+            result.add(new ArrayLine(rows[i]));
         }
 
-        return rows;
+        return result;
     }
 
     public List<Line> getColumns() {
@@ -84,7 +80,7 @@ public class ArrayBoard implements Board {
 
     public Line getColumn(int columnIndex) {
         Marker[] columnMarkers = getColumnMarkers(columnIndex);
-        return new LineImpl(columnMarkers);
+        return new ArrayLine(columnMarkers);
     }
 
     private Marker[] getColumnMarkers(int columnIndex) {
@@ -99,7 +95,7 @@ public class ArrayBoard implements Board {
     public Line getDiagonal(Diagonal diagonal) {
         Marker[] diagonalMarkers = getDiagonalMarkers(diagonal);
 
-        return new LineImpl(diagonalMarkers);
+        return new ArrayLine(diagonalMarkers);
     }
 
     private Marker[] getDiagonalMarkers(Diagonal diagonal) {
@@ -111,9 +107,9 @@ public class ArrayBoard implements Board {
     }
 
     @Override
-    public Board mark(Move move, Marker marker) {
+    public Board applyMove(Move move, Marker marker) {
         if(isMarked(move)) {
-            throw new InvalidMoveException(" Is already taken");
+            throw new InvalidMoveException("Is already taken");
         }
 
         return new ArrayBoard(this, move,  marker);
@@ -174,42 +170,4 @@ public class ArrayBoard implements Board {
         return hasWinner(getDiagonals());
     }
 
-    public class LineImpl implements Line {
-
-        private final Marker[] marks;
-
-        public LineImpl(Marker[] markers) {
-            this.marks = markers;
-        }
-
-        public boolean isEmpty() {
-            for(Marker mark : marks) {
-                if(!mark.isNone()) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        public Marker getMarker(int index) {
-            return marks[index];
-        }
-
-        public boolean hasWinner() {
-            return marks[0].isMarked() && allMarkingsEqual();
-        }
-
-        private boolean allMarkingsEqual() {
-            Marker reference = marks[0];
-            for(Marker marker : marks) {
-                if(reference != marker) {
-                    return  false;
-                }
-            }
-            return true;
-        }
-    }
 }
-
-

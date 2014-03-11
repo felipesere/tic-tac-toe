@@ -84,7 +84,6 @@ public class ConsoleUI implements UI {
         printer.println("Player " + player.getName() + " has won");
     }
 
-
     @Override
     public void showDraw() {
         printer.println("It was a draw");

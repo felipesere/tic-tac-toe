@@ -51,7 +51,7 @@ public class BoardBuilder {
     private BoardBuilder applyMarkersOnRow(int row, Marker... marker) {
         for (int i = 0; i < 3; i++) {
             Move move = new Move(row, i);
-            board = board.mark(move, marker[i]);
+            board = board.applyMove(move, marker[i]);
         }
         return this;
     }

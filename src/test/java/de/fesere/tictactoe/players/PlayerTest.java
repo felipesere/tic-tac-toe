@@ -25,7 +25,7 @@ public class PlayerTest {
     }
 
     @Test
-        public void test_performingMoveAddsMarker_forHuman() {
+    public void test_performingMoveAddsMarker_forHuman() {
         UI dummyUI = createDummyUI();
         Player player = new Human(Marker.X, dummyUI);
 

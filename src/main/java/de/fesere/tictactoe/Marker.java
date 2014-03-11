@@ -20,7 +20,6 @@ public enum Marker {
         return X;
     }
 
-
     @Override
     public String toString() {
         if(this== X) {
