@@ -15,9 +15,9 @@ public class UINotifierTest {
 
     @Test
     public void testNotifiyWinner() {
-        Board board =new BoardBuilder().row1("[O][X][ ]")
-                                       .row2("[ ][X][ ]")
-                                       .row3("[ ][X][O]").build();
+        Board board =new BoardBuilder().row("[O][X][ ]")
+                                       .row("[ ][X][ ]")
+                                       .row("[ ][X][O]").build();
 
 
         UINotifier notifier = new UINotifier(mockUI);
@@ -29,9 +29,9 @@ public class UINotifierTest {
 
     @Test
     public void testNotifiyDraw() {
-        Board board =new BoardBuilder().row1("[O][X][O]")
-                                       .row2("[O][X][X]")
-                                       .row3("[X][O][O]").build();
+        Board board =new BoardBuilder().row("[O][X][O]")
+                                       .row("[O][X][X]")
+                                       .row("[X][O][O]").build();
 
 
         UINotifier notifier = new UINotifier(mockUI);

@@ -6,12 +6,11 @@ import de.fesere.tictactoe.exceptions.InvalidMoveException;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static de.fesere.tictactoe.Marker.O;
 import static de.fesere.tictactoe.Marker.X;
-import static de.fesere.tictactoe.board.Diagonal.BOTTOM_LEFT;
-import static de.fesere.tictactoe.board.Diagonal.TOP_LEFT;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.assertThat;
@@ -37,48 +36,25 @@ public class BoardTest {
 
         Board updatedBoard = board.mark(new Move(0,1), X);
 
-        Line firstRow = updatedBoard.getRow(0);
-        assertThat(firstRow.getMarker(1), is(X));
-
-        Line secondColumn = updatedBoard.getColumn(1);
-        assertThat(secondColumn.getMarker(0), is(X));
+        List<Line> lines = keepNonEmptyLines(updatedBoard.getLines());
+        assertThat(lines, hasSize(2));
     }
+
 
     @Test
     public void markTopLeftAffectsBothRowAndColumnAndDiagonal() {
         Board updatedBoard = board.mark(new Move(0,0), X);
 
-        Line firstRow = updatedBoard.getRow(0);
-        assertThat(firstRow.getMarker(0), is(X));
-
-        Line firstColumn = updatedBoard.getColumn(0);
-        assertThat(firstColumn.getMarker(0), is(X));
-
-        Line firstDiagonal = updatedBoard.getDiagonal(TOP_LEFT);
-        assertThat(firstDiagonal.getMarker(0), is(X));
+        List<Line> lines = keepNonEmptyLines(updatedBoard.getLines());
+        assertThat(lines, hasSize(3));
     }
 
     @Test
     public void markCenterAndCheckForAll() {
         Board updatedBoard = board.mark(new Move(1,1), X);
 
-        Line firstRow = updatedBoard.getRow(1);
-        assertThat(firstRow.getMarker(1), is(X));
-        assertThat(firstRow.isEmpty(), is(false));
-
-
-        Line firstColumn = updatedBoard.getColumn(1);
-        assertThat(firstColumn.getMarker(1), is(X));
-        assertThat(firstColumn.isEmpty(), is(false));
-
-        Line firstDiagonal = updatedBoard.getDiagonal(BOTTOM_LEFT);
-        assertThat(firstDiagonal.getMarker(1), is(X));
-        assertThat(firstDiagonal.isEmpty(), is(false));
-
-
-        Line secondDiagonal = updatedBoard.getDiagonal(TOP_LEFT);
-        assertThat(secondDiagonal.getMarker(1), is(X));
-        assertThat(secondDiagonal.isEmpty(), is(false));
+        List<Line> lines = keepNonEmptyLines(updatedBoard.getLines());
+        assertThat(lines, hasSize(4));
     }
 
     @Test
@@ -113,25 +89,38 @@ public class BoardTest {
 
     @Test
     public void threeInRowHasWinner() {
-        Board result = new BoardBuilder().row1("[X][X][X]").build();
+        Board result = new BoardBuilder().row("[X][X][X]").build();
 
         assertThat(result.hasWinner(), is(true));
     }
 
     @Test
     public void threeInColumnHasWinner() {
-        Board result = new BoardBuilder().row1("[X][][]")
-                                         .row2("[X][][]")
-                                         .row3("[X][][]").build();
+        Board result = new BoardBuilder().row("[X][][]")
+                                         .row("[X][][]")
+                                         .row("[X][][]").build();
 
         assertThat(result.hasWinner(), is(true));
     }
 
     @Test
     public void threeInDiagonalHasWinner() {
-        Board result = new BoardBuilder().row1("[X][ ][ ]")
-                                         .row2("[ ][X][ ]")
-                                         .row3("[ ][ ][X]").build();
+        Board result = new BoardBuilder().row("[X][ ][ ]")
+                                         .row("[ ][X][ ]")
+                                         .row("[ ][ ][X]").build();
         assertThat(result.hasWinner(), is(true));
+    }
+
+
+
+    private List<Line> keepNonEmptyLines(List<Line> lines) {
+        List<Line> result = new LinkedList<>();
+        for(Line line : lines) {
+            if(!line.isEmpty()) {
+                result.add(line);
+            }
+        }
+
+        return result;
     }
 }

@@ -10,13 +10,17 @@ import static de.fesere.tictactoe.Marker.NONE;
 public class BoardBuilder {
 
     private Board board = new ArrayBoard();
+    private int rowIndex = 0;
+
 
     public BoardBuilder() {
     }
 
-    public BoardBuilder row1(String row) {
+    public BoardBuilder row(String row) {
         Marker[] markers = getMarkerFromString(row);
-        return applyMarkersOnRow(0, markers);
+        BoardBuilder builder = applyMarkersOnRow(rowIndex, markers);
+        builder.rowIndex++;
+        return builder;
     }
 
     private Marker[] getMarkerFromString(String row) {
@@ -50,16 +54,6 @@ public class BoardBuilder {
             board = board.mark(move, marker[i]);
         }
         return this;
-    }
-
-    public BoardBuilder row2(String row) {
-        Marker[] markers = getMarkerFromString(row);
-        return applyMarkersOnRow(1, markers);
-    }
-
-    public BoardBuilder row3(String row) {
-        Marker[] markers = getMarkerFromString(row);
-        return applyMarkersOnRow(2, markers);
     }
 
     public Board build() {

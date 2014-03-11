@@ -15,9 +15,9 @@ public class TicTacToeTest {
 
     @Test
     public void testGameLoopAlternatesCorrectly() {
-        Board board = new BoardBuilder().row1("[O][ ][X]")
-                                        .row2("[X][ ][O]")
-                                        .row3("[ ][X][X]").build();
+        Board board = new BoardBuilder().row("[O][ ][X]")
+                                        .row("[X][ ][O]")
+                                        .row("[ ][X][X]").build();
 
         firstPlayer = new ScriptedPlayer(X, new Move(0,1), new Move(2,0));
         secondPlayer = new ScriptedPlayer(O, new Move(1,1));
@@ -34,9 +34,9 @@ public class TicTacToeTest {
 
     @Test
     public void correctNotificationOfPlayerXWinning() {
-        Board board = new BoardBuilder().row1("[X][ ][X]")
-                                        .row2("[X][O][O]")
-                                        .row3("[O][O][X]").build();
+        Board board = new BoardBuilder().row("[X][ ][X]")
+                                        .row("[X][O][O]")
+                                        .row("[O][O][X]").build();
 
         TicTacToe ticTacToe = new TicTacToe(board,firstPlayer, secondPlayer);
         ticTacToe.play(new GameFinishedNotifier() {
@@ -50,9 +50,9 @@ public class TicTacToeTest {
 
     @Test
     public void correctNotificationOfDraw() {
-        Board board = new BoardBuilder().row1("[O][X][X]")
-                                        .row2("[X][O][O]")
-                                        .row3("[O][X][X]").build();
+        Board board = new BoardBuilder().row("[O][X][X]")
+                                        .row("[X][O][O]")
+                                        .row("[O][X][X]").build();
 
         TicTacToe ticTacToe = new TicTacToe(board,firstPlayer, secondPlayer);
         ticTacToe.play(new GameFinishedNotifier() {

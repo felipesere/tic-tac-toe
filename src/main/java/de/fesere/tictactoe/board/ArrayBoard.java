@@ -52,12 +52,10 @@ public class ArrayBoard implements Board {
         return lines;
     }
 
-    @Override
     public Line getRow(int rowIndex) {
         return new LineImpl(rows[rowIndex]);
     }
 
-    @Override
     public List<Line> getRows() {
         List<Line> rows = new LinkedList<>();
         for(int i=0; i < SIZE; i++) {
@@ -84,7 +82,6 @@ public class ArrayBoard implements Board {
         return diagonals;
     }
 
-    @Override
     public Line getColumn(int columnIndex) {
         Marker[] columnMarkers = getColumnMarkers(columnIndex);
         return new LineImpl(columnMarkers);
@@ -99,7 +96,6 @@ public class ArrayBoard implements Board {
         return result;
     }
 
-    @Override
     public Line getDiagonal(Diagonal diagonal) {
         Marker[] diagonalMarkers = getDiagonalMarkers(diagonal);
 
@@ -178,19 +174,12 @@ public class ArrayBoard implements Board {
         return hasWinner(getDiagonals());
     }
 
-
     public class LineImpl implements Line {
 
-        private final Marker[] marks = new Marker[SIZE];
-
-        private LineImpl(Marker first, Marker middle, Marker last) {
-            marks[0] = first;
-            marks[1] = middle;
-            marks[2] = last;
-        }
+        private final Marker[] marks;
 
         public LineImpl(Marker[] markers) {
-            this(markers[0], markers[1], markers[2]);
+            this.marks = markers;
         }
 
         public boolean isEmpty() {
@@ -208,9 +197,17 @@ public class ArrayBoard implements Board {
         }
 
         public boolean hasWinner() {
-            return marks[0].isMarked() &&
-                    marks[0] == marks[1] &&
-                    marks[1] == marks[2];
+            return marks[0].isMarked() && allMarkingsEqual();
+        }
+
+        private boolean allMarkingsEqual() {
+            Marker reference = marks[0];
+            for(Marker marker : marks) {
+                if(reference != marker) {
+                    return  false;
+                }
+            }
+            return true;
         }
     }
 }

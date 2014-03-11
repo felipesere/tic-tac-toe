@@ -72,9 +72,9 @@ public class ConsoleUITest {
 
     @Test
     public void testPrintBoardWithMarkers() throws UnsupportedEncodingException {
-        Board board =new BoardBuilder().row1("[O][ ][ ]")
-                                       .row2("[ ][X][ ]")
-                                       .row3("[ ][ ][O]").build();
+        Board board =new BoardBuilder().row("[O][ ][ ]")
+                                       .row("[ ][X][ ]")
+                                       .row("[ ][ ][O]").build();
 
 
         UI userInterface = new ConsoleUI(emptyInput(), outputStream);
