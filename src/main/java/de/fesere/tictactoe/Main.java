@@ -1,6 +1,7 @@
 package de.fesere.tictactoe;
 
 import de.fesere.tictactoe.board.ArrayBoard;
+import de.fesere.tictactoe.exceptions.InvalidGameConfigurationException;
 import de.fesere.tictactoe.players.Human;
 import de.fesere.tictactoe.players.UnbeatableAI;
 import de.fesere.tictactoe.ui.ConsoleUI;
@@ -17,6 +18,8 @@ public class Main {
 
         Player firstPlayer = new Human(X, userInterface);
         Player secondPlayer =  new UnbeatableAI(O);
+        validatePlayers(firstPlayer, secondPlayer);
+
         Board board = new ArrayBoard();
         GameFinishedNotifier notifyAfterFinish = new UINotifier(userInterface);
 
@@ -24,4 +27,9 @@ public class Main {
         ticTacToe.play(notifyAfterFinish);
     }
 
+    private static void validatePlayers(Player firstPlayer, Player secondPlayer) {
+        if(firstPlayer.getMarker() == secondPlayer.getMarker()) {
+            throw new InvalidGameConfigurationException("Players must have different markers!");
+        }
+    }
 }

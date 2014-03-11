@@ -3,7 +3,7 @@ package de.fesere.tictactoe.ui;
 import de.fesere.tictactoe.Board;
 import de.fesere.tictactoe.Move;
 import de.fesere.tictactoe.Player;
-import de.fesere.tictactoe.board.Line;
+import de.fesere.tictactoe.Board.Line;
 
 import java.io.*;
 import java.util.List;

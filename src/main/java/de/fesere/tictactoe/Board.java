@@ -1,7 +1,6 @@
 package de.fesere.tictactoe;
 
 import de.fesere.tictactoe.board.Diagonal;
-import de.fesere.tictactoe.board.Line;
 
 import java.util.List;
 
@@ -20,7 +19,16 @@ public interface Board {
 
     List<Move> getPossibleMoves();
 
+    boolean isFinished();
+
     boolean hasWinner();
 
     boolean hasDraw();
+
+
+    public interface Line {
+        boolean isEmpty();
+        Marker getMarker(int index);
+        boolean hasWinner();
+    }
 }

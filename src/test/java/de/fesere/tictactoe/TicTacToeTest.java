@@ -1,6 +1,5 @@
 package de.fesere.tictactoe;
 
-import de.fesere.tictactoe.exceptions.InvalidGameConfigurationException;
 import de.fesere.tictactoe.players.RandomAI;
 import org.junit.Test;
 
@@ -13,12 +12,6 @@ public class TicTacToeTest {
 
     private Player firstPlayer = new RandomAI(X);
     private Player secondPlayer =  new RandomAI(O);
-
-    @Test(expected = InvalidGameConfigurationException.class)
-    public void throwExceptionIfSameMarkingForBothPlayers(){
-        new TicTacToe(null, new RandomAI(X), new RandomAI(X));
-    }
-
 
     @Test
     public void testGameLoopAlternatesCorrectly() {

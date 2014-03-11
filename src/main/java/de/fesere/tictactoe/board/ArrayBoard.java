@@ -54,7 +54,7 @@ public class ArrayBoard implements Board {
 
     @Override
     public Line getRow(int rowIndex) {
-        return new Line(rows[rowIndex]);
+        return new LineImpl(rows[rowIndex]);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class ArrayBoard implements Board {
     @Override
     public Line getColumn(int columnIndex) {
         Marker[] columnMarkers = getColumnMarkers(columnIndex);
-        return new Line(columnMarkers);
+        return new LineImpl(columnMarkers);
     }
 
     private Marker[] getColumnMarkers(int columnIndex) {
@@ -103,7 +103,7 @@ public class ArrayBoard implements Board {
     public Line getDiagonal(Diagonal diagonal) {
         Marker[] diagonalMarkers = getDiagonalMarkers(diagonal);
 
-        return new Line(diagonalMarkers);
+        return new LineImpl(diagonalMarkers);
     }
 
     private Marker[] getDiagonalMarkers(Diagonal diagonal) {
@@ -141,11 +141,14 @@ public class ArrayBoard implements Board {
     }
 
     @Override
+    public boolean isFinished() {
+        return hasWinner() || hasDraw();
+    }
+
     public boolean hasWinner() {
         return hasWinningRows() || hasWinningColumns() || hasWinningDiagonals();
     }
 
-    @Override
     public boolean hasDraw() {
         return !hasWinner() && everythingMarked();
     }
@@ -173,6 +176,42 @@ public class ArrayBoard implements Board {
 
     private boolean hasWinningDiagonals() {
         return hasWinner(getDiagonals());
+    }
+
+
+    public class LineImpl implements Line {
+
+        private final Marker[] marks = new Marker[SIZE];
+
+        private LineImpl(Marker first, Marker middle, Marker last) {
+            marks[0] = first;
+            marks[1] = middle;
+            marks[2] = last;
+        }
+
+        public LineImpl(Marker[] markers) {
+            this(markers[0], markers[1], markers[2]);
+        }
+
+        public boolean isEmpty() {
+            for(Marker mark : marks) {
+                if(!mark.isNone()) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public Marker getMarker(int index) {
+            return marks[index];
+        }
+
+        public boolean hasWinner() {
+            return marks[0].isMarked() &&
+                    marks[0] == marks[1] &&
+                    marks[1] == marks[2];
+        }
     }
 }
 
