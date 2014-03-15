@@ -2,7 +2,6 @@ package de.fesere.tictactoe.ui;
 
 import de.fesere.tictactoe.Board;
 import de.fesere.tictactoe.Board.Line;
-import de.fesere.tictactoe.Marker;
 import de.fesere.tictactoe.Move;
 import de.fesere.tictactoe.Player;
 import org.apache.commons.lang3.StringUtils;
@@ -35,8 +34,8 @@ public class ConsoleUI implements UI {
         printer.println("[" + StringUtils.join(row.getMarkers(), "][") + "]");
     }
 
-    @Override
-    public void displayMoves(List<Move> moves) {
+    public void displayMoves(Board board) {
+        List<Move> moves = board.getPossibleMoves();
         for (int i= 0; i < moves.size(); i++) {
             Move move = moves.get(i);
             printer.println("Move (" + i + ") :" + move.getRow() + ", " + move.getColumn());

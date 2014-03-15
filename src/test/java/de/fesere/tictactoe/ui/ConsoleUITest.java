@@ -2,8 +2,6 @@ package de.fesere.tictactoe.ui;
 
 import de.fesere.tictactoe.Board;
 import de.fesere.tictactoe.BoardBuilder;
-import de.fesere.tictactoe.Move;
-import de.fesere.tictactoe.ScriptedPlayer;
 import de.fesere.tictactoe.board.ArrayBoard;
 import de.fesere.tictactoe.players.RandomAI;
 import org.apache.commons.lang3.StringUtils;
@@ -92,21 +90,7 @@ public class ConsoleUITest {
         UI userInterface = new ConsoleUI(emptyInput(), outputStream);
         userInterface.displayMoves(board);
 
-        assertThat(outputStream.toString(), is("[1][2][3]\n[4][5][6]\n[7][8][9]\n"));
-    }
-
-    @Test
-    public void testPrintMovesInterleavedWithBoardMarkers() {
-        Board board = new ArrayBoard();
-
-        ScriptedPlayer player = new ScriptedPlayer(X);
-
-        board = board.applyMove(new Move(1,1), X);
-
-        UI userInterface = new ConsoleUI(emptyInput(), outputStream);
-        userInterface.displayMoves(board);
-
-        assertThat(outputStream.toString(), is("[1][2][3]\n[4][X][5]\n[6][7][8]\n"));
+        assertThat(linesPrinted(), is(9));
     }
 
     @Test
