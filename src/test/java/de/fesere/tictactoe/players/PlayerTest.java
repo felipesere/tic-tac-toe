@@ -25,7 +25,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void test_performingMoveAddsMarker_forHuman() {
+    public void testPerformingMoveAddsMarkerForHuman() {
         UI dummyUI = createDummyUI();
         Player player = new Human(Marker.X, dummyUI);
 
@@ -37,7 +37,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void test_performingMoveAddsMarker_forAI() {
+    public void testPerformingMoveAddsMarkerforAI() {
         Player player = new RandomAI(Marker.X);
 
         int beforePossibleMoves = getNumberOfPossibleMoves(board);
@@ -55,7 +55,7 @@ public class PlayerTest {
             }
 
             @Override
-            public void displayMoves(List<Move> moves) {
+            public void displayMoves(Board board) {
             }
 
             @Override

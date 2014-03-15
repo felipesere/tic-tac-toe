@@ -22,12 +22,13 @@ public class Human extends BasePlayer {
         userInterface.displayBoard(board);
 
         List<Move> possibleMoves = board.getPossibleMoves();
+        userInterface.displayMoves(board);
         Move move = selectMove(possibleMoves);
+
         return board.applyMove(move, marker);
     }
 
     private Move selectMove(List<Move> possibleMoves) {
-        userInterface.displayMoves(possibleMoves);
         int choice = userInterface.getSelectedMove(possibleMoves);
 
         return possibleMoves.get(choice);

@@ -12,7 +12,6 @@ public class BoardBuilder {
     private Board board = new ArrayBoard();
     private int rowIndex = 0;
 
-
     public BoardBuilder() {
     }
 
@@ -33,7 +32,6 @@ public class BoardBuilder {
             }
         }
         return marker;
-
     }
 
     private Marker convertToMarker(String group) {
@@ -44,9 +42,7 @@ public class BoardBuilder {
             return Marker.O;
         }
         return NONE;
-
     }
-
 
     private BoardBuilder applyMarkersOnRow(int row, Marker... marker) {
         for (int i = 0; i < 3; i++) {

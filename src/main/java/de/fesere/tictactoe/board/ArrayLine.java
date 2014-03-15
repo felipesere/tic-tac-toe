@@ -3,6 +3,9 @@ package de.fesere.tictactoe.board;
 import de.fesere.tictactoe.Board;
 import de.fesere.tictactoe.Marker;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ArrayLine implements Board.Line {
 
     private final Marker[] marks;
@@ -21,12 +24,13 @@ public class ArrayLine implements Board.Line {
         return true;
     }
 
-    public Marker getMarker(int index) {
-        return marks[index];
-    }
-
     public boolean hasWinner() {
         return marks[0].isMarked() && allMarkingsEqual();
+    }
+
+    @Override
+    public List<Marker> getMarkers() {
+        return Arrays.asList(marks);
     }
 
     private boolean allMarkingsEqual() {

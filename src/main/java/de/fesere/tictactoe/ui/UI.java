@@ -10,7 +10,7 @@ public interface UI {
 
     void displayBoard(Board board);
 
-    void displayMoves(List<Move> moves);
+    void displayMoves(Board board);
 
     int getSelectedMove(List<Move> moves);
 

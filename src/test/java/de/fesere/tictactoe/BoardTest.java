@@ -25,15 +25,13 @@ public class BoardTest {
 
     @Test
     public void emptyBoardHasEmptyLines() {
-       for(Line line : board.getLines()) {
-           assertThat(line.isEmpty(), is(true));
-       }
+       List<Line> lines = keepNonEmptyLines(board.getLines());
+       assertThat(lines, hasSize(0));
     }
 
 
     @Test
     public void markTopCenterAffectsBothRowAndColumn() {
-
         Board updatedBoard = board.applyMove(new Move(0, 1), X);
 
         List<Line> lines = keepNonEmptyLines(updatedBoard.getLines());
@@ -68,7 +66,6 @@ public class BoardTest {
         Board updatedBoard = board.applyMove(new Move(0, 0), O);
         List<Move> possibleMoves = updatedBoard.getPossibleMoves();
         assertThat(possibleMoves, hasSize(8));
-
 
         List<Move> oldPossibleMoves =  board.getPossibleMoves();
         assertThat(oldPossibleMoves, hasSize(9));
@@ -108,10 +105,9 @@ public class BoardTest {
         Board result = new BoardBuilder().row("[X][ ][ ]")
                                          .row("[ ][X][ ]")
                                          .row("[ ][ ][X]").build();
+
         assertThat(result.hasWinner(), is(true));
     }
-
-
 
     private List<Line> keepNonEmptyLines(List<Line> lines) {
         List<Line> result = new LinkedList<>();

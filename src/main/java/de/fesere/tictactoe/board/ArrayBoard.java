@@ -5,9 +5,7 @@ import de.fesere.tictactoe.Marker;
 import de.fesere.tictactoe.Move;
 import de.fesere.tictactoe.exceptions.InvalidMoveException;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static de.fesere.tictactoe.Marker.NONE;
 

@@ -1,9 +1,11 @@
 package de.fesere.tictactoe.ui;
 
 import de.fesere.tictactoe.Board;
+import de.fesere.tictactoe.Board.Line;
+import de.fesere.tictactoe.Marker;
 import de.fesere.tictactoe.Move;
 import de.fesere.tictactoe.Player;
-import de.fesere.tictactoe.Board.Line;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
 import java.util.List;
@@ -30,7 +32,7 @@ public class ConsoleUI implements UI {
     }
 
     private void printRow(Line row) {
-        printer.println("[" + row.getMarker(0) + "][" + row.getMarker(1) + "][" + row.getMarker(2) + "]");
+        printer.println("[" + StringUtils.join(row.getMarkers(), "][") + "]");
     }
 
     @Override

@@ -1,11 +1,14 @@
 package de.fesere.tictactoe;
 
 import java.util.List;
+import java.util.Map;
 
 public interface Board {
     List<Line> getLines();
 
+
     Board applyMove(Move move, Marker marker);
+
 
     List<Move> getPossibleMoves();
 
@@ -19,7 +22,9 @@ public interface Board {
 
     public interface Line {
         boolean isEmpty();
-        Marker getMarker(int index);
+
         boolean hasWinner();
+
+        List<Marker> getMarkers();
     }
 }

@@ -14,9 +14,8 @@ public class UnbeatableAITest {
 
     private final UnbeatableAI player = new UnbeatableAI(X);
 
-
     @Test
-    public void test_directWin() {
+    public void testSimpleDirectWin() {
         Board initial = new BoardBuilder().row("[X][X][ ]").build();
 
         Board result = player.performMove(initial);
@@ -24,7 +23,7 @@ public class UnbeatableAITest {
     }
 
     @Test
-    public void test_avoidDirectDefeat() {
+    public void testAvoidDirectDefeat() {
         Board initial = new BoardBuilder().row("[O][O][ ]").build();
 
         Board result = player.performMove(initial);
@@ -35,8 +34,7 @@ public class UnbeatableAITest {
     }
 
     @Test
-    public void shouldWinColumn() {
-
+    public void testShouldWinDirectlyWithColumn() {
         Board initial = new BoardBuilder()
                 .row("[O][X][O]")
                 .row("[X][X][O]")
@@ -47,8 +45,7 @@ public class UnbeatableAITest {
     }
 
     @Test
-    public void testShouldwinDiagonal() {
-
+    public void testShouldWinDirectlyWithDiagonal() {
         Board initial = new BoardBuilder()
                 .row("[X][O][O]")
                 .row("[O][X][O]")
@@ -59,8 +56,7 @@ public class UnbeatableAITest {
     }
 
     @Test
-    public void testShouldwin3() {
-
+    public void testShouldwinDirectlyRatherThanDefend() {
         Board initial = new BoardBuilder()
                 .row("[X][O][O]")
                 .row("[ ][X][O]")
